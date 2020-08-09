@@ -53,7 +53,7 @@ const Landing: React.FC = () => {
           onPress={handleNavigateToGiveClassesPage}
         >
           <Image source={giveClassesIcon} />
-          <Text style={styles.buttonText} >Estudar</Text>
+          <Text style={styles.buttonText} >Dar aulas</Text>
         </RectButton>
       </View>
 

@@ -1,4 +1,4 @@
-import { Request, Response, json } from 'express';
+import { Request, Response } from 'express';
 
 import db from '../database/connection';
 import convertHourToMinutes from '../utils/convertHourToMinutes';
@@ -37,14 +37,16 @@ export default class ClassesController {
       })
       .where('classes.subject', '=', subject)
       .join('users', 'classes.user_id', '=', 'users.id')
-      .select(['classes.*', 'users.*']);
+      .select(['classes.*', 'users.name', 'users.whatsapp', 'users.avatar', 'users.bio']);
 
-    return response.json(classes);
+    const proffySchedule = await db('class_schedule')
+      .where({ class_id: classes[0].id});
+
+    return response.json({classes, proffySchedule});
   }
 
   async create(request: Request, response: Response) {
     const {
-      name,
       avatar,
       whatsapp,
       bio,
@@ -52,18 +54,19 @@ export default class ClassesController {
       cost,
       schedule
     } = request.body;
+    const user_id = request.user.id;
+    console.log(user_id);
 
     const trx = await db.transaction();
 
     try {
-      const insertedUsersIds = await trx('users').insert({
-        name,
-        avatar,
-        whatsapp,
-        bio,
-      });
-
-      const user_id = insertedUsersIds[0];
+      const updateUser = await trx('users')
+        .where({ id: user_id })
+        .update({
+          avatar,
+          whatsapp,
+          bio,
+        });
 
       const insertedClassesIds = await trx('classes').insert({
         subject,

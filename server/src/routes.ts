@@ -1,17 +1,28 @@
 import express from 'express';
 import ClassesController from './controllers/ClassesController';
 import ConnectionsController from './controllers/ConnectionsController';
+import UsersController from './controllers/UsersController';
+import SessionsController from './controllers/SessionsController';
+import ensureAuthenticated from './middlewares/ensureAuthenticated';
 
 
 const routes = express.Router();
 const classesControllers = new ClassesController();
-const connectiosnController = new ConnectionsController();
+const connectionsController = new ConnectionsController();
+const usersController = new UsersController();
+const sessionsController = new SessionsController();
 
+
+routes.post('/users', usersController.create);
+routes.post('/sessions', sessionsController.create);
+routes.get('/connections', connectionsController.index);
+
+
+routes.use(ensureAuthenticated);
 
 routes.get('/classes', classesControllers.index);
 routes.post('/classes', classesControllers.create);
 
-routes.get('/connections', connectiosnController.index);
-routes.post('/connections', connectiosnController.create);
+routes.post('/connections', connectionsController.create);
 
 export default routes;

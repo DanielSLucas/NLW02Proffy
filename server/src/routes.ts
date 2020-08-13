@@ -4,6 +4,7 @@ import ConnectionsController from './controllers/ConnectionsController';
 import UsersController from './controllers/UsersController';
 import SessionsController from './controllers/SessionsController';
 import ensureAuthenticated from './middlewares/ensureAuthenticated';
+import ResetPasswordController from './controllers/ResetPasswordController';
 
 
 const routes = express.Router();
@@ -11,7 +12,10 @@ const classesControllers = new ClassesController();
 const connectionsController = new ConnectionsController();
 const usersController = new UsersController();
 const sessionsController = new SessionsController();
+const resetPasswordController = new ResetPasswordController();
 
+
+routes.post('/reset-password', resetPasswordController.create);
 
 routes.post('/users', usersController.create);
 routes.post('/sessions', sessionsController.create);

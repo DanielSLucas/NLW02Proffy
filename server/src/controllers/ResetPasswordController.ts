@@ -2,12 +2,54 @@ import { Request, Response } from 'express';
 import { User } from './UsersController';
 import { uuid } from 'uuidv4';
 import nodemailer, { Transporter } from 'nodemailer';
+import { isAfter, addHours, parseISO } from 'date-fns';
 
 import db from '../database/connection';
+import { compare, hash } from 'bcryptjs';
+
+interface UserToken {
+  id: number;
+  token: string;
+  user_id: string;
+  created_at: string;
+}
 
 export default class ResetPasswordController {
 
-  async update(request: Request, response: Response) { }
+  async update(request: Request, response: Response) {
+    try {
+      const { password, confirm_password, token } = request.body;
+
+      const userToken: UserToken[] = await db('user_tokens').where({ token, });
+      const userTokenExists = userToken[0];
+
+      if (!userTokenExists) {
+        throw new Error("User token does not exists");
+      }
+
+      const user = await db('users').where({ id: userTokenExists.user_id });
+      const userExists = user[0];
+
+      if (!userExists) {
+        throw new Error("User does not exists");
+      }
+
+      const tokenCreatedAt = parseISO(userTokenExists.created_at);
+      const compareDate = addHours(tokenCreatedAt, 2);
+
+      if (isAfter(Date.now(), compareDate)) {
+        throw new Error("Token expired");
+      }
+
+      const newPassword = await hash(password, 8);
+
+      const updatedUser = await db('users').where({ id: userTokenExists.user_id }).update({ password: newPassword, })
+
+      return response.json({ message: 'Updated!' })
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
+  }
 
   async create(request: Request, response: Response) {
     let mailClient: Transporter;

@@ -1,4 +1,5 @@
 import Landing from './pages/Landing';
+import SignIn from './pages/SignIn';
 import TeacherList from './pages/TeacherList';
 import TeacherForm from './pages/TeacherForm';
 
@@ -10,7 +11,7 @@ import { BrowserRouter, Route } from 'react-router-dom';;
 function Routes() {
   return (
     <BrowserRouter>
-      <Route path="/" exact component={Landing} />
+      <Route path="/" exact component={SignIn} />
       <Route path="/study" component={TeacherList} />
       <Route path="/give-classes" component={TeacherForm} />
     </BrowserRouter>

@@ -22,11 +22,13 @@ const SignIn: React.FC = () => {
           <input type="text" placeholder="Email"/>
           <input type="text" placeholder="Senha"/>
           <div>
-            <input type="checkbox" name="" id=""/>
-            Lembrar-me
+            <div className="rememberme">
+              <input type="checkbox" name="" id=""/>
+              Lembrar-me
+            </div>
             <a href="#">Esqueci minha senha</a>
           </div>
-          <button>Entrar</button>
+          <button  type="submit">Entrar</button>
         </form>
 
         <footer>

@@ -55,15 +55,6 @@
   margin-bottom: 3rem;
 }
 
-.login-container form input {
-  height: 6.5rem;
-
-  border: 0.1rem solid var(--color-line-in-white);
-  border-radius: 0.8rem;
-
-  text-align: start;
-}
-
 #page-signin .login-container footer {
   width: 35rem;
   margin-top: 20rem;
@@ -74,20 +65,26 @@
   justify-content: space-between;
 }
 
-.login-container form div input {
+.login-container form .form-footer input {
   margin: 0.5rem;
   height: 1.8rem;
   width: 1.8rem;
   border-radius: 0.8rem;
 }
 
-.login-container form div input:checked {
+.login-container form .form-footer input:checked {
   background-color: var(--color-secundary) !important;
   height: 1.8rem;
   width: 1.8rem;
 }
 
-.login-container form div {
+.login-container form .form-footer .rememberme {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.login-container form .form-footer {
   margin: 1.0rem 0 ;
   display: flex;
   flex-direction: row;
@@ -95,27 +92,10 @@
   justify-content: space-between;
 }
 
-.login-container form div a {
+.login-container form .form-footer a {
   text-decoration: none;
   color: var(--color-text-complement);
   font: 400 1.4rem Poppins;
-}
-
-.login-container form button {
-  margin-top: 1.5rem;
-  font: 600 1.6rem Archivo;
-  height: 5.6rem;
-  border: 0;
-  border-radius: 0.8rem;
-}
-
-.login-container form button:disabled {
-  background: #DCDCE5;  
-}
-
-.login-container form button:enabled {
-  background: var(--color-secundary);  
-  color: var(--color-button-text);
 }
 
 .login-container footer .signup {

@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import logoImg from '../../assets/images/logo.svg';
 import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg';
 
 import './styles.css';
+import CustomizedInput from '../../components/CustomizedInput';
+import Button from '../../components/Button';
 
 const SignIn: React.FC = () => {
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (!!email && !!password) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [email, password]);
+  
   return (
     <div id="page-signin">
       <div className="intro-container">
@@ -19,16 +33,28 @@ const SignIn: React.FC = () => {
 
         <form>
           <legend>Fazer login</legend>
-          <input type="text" placeholder="Email"/>
-          <input type="text" placeholder="Senha"/>
-          <div>
+          <CustomizedInput 
+            type="text" 
+            name="email"
+            value={email} 
+            onChange={e => setEmail(e.target.value)}
+            placeholder="E-mail"
+          />
+          <CustomizedInput 
+            type="password" 
+            name="password"
+            value={password} 
+            onChange={e => setPassword(e.target.value)} 
+            placeholder="Senha"
+          />
+          <div className="form-footer">
             <div className="rememberme">
               <input type="checkbox" name="" id=""/>
               Lembrar-me
             </div>
             <a href="#">Esqueci minha senha</a>
           </div>
-          <button  type="submit">Entrar</button>
+          <Button  disabled={buttonDisabled} type="submit">Entrar</Button>
         </form>
 
         <footer>

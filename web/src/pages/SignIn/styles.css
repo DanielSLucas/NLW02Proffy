@@ -124,9 +124,13 @@
     background-image: unset;
   }
 
+  #page-signin .login-container form {
+    margin-top: 2rem;
+  }
+
   #page-signin .login-container footer {
-    margin-top: 50%;
-    margin-bottom: 20%;
+    margin-top: 35%;
+    margin-bottom: 15%;
   }
 
 }
@@ -136,6 +140,11 @@
     width: 70%;
   }
 
+  #page-signin .login-container footer {
+    margin-top: 40%;
+    margin-bottom: 20%;
+  }
+  
   #page-signin .login-container {
     width: 70%;
   }

@@ -65,3 +65,25 @@
   top: 1rem;
   bottom: 0.5rem;
 }
+
+.form__group .eye-button {
+  position: absolute;
+  right: 1rem;
+  bottom: 2.5rem;
+  
+  padding: 3px;
+
+  border: 0;
+  outline: 0;
+  background: transparent;
+}
+
+.form__group img {
+  margin-bottom: -1rem;
+}
+
+.form__group .closed-eye {
+  width: 1.8rem;
+  height: 0.2rem;
+  background: var(--color-text-complement);
+}

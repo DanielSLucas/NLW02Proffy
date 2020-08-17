@@ -43,6 +43,7 @@ const SignIn: React.FC = () => {
           <CustomizedInput 
             type="password" 
             name="password"
+            password
             value={password} 
             onChange={e => setPassword(e.target.value)} 
             placeholder="Senha"

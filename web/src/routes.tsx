@@ -14,6 +14,9 @@ function Routes() {
   return (
     <BrowserRouter>
       <Route path="/" exact component={SignIn} />
+      <Route path="/signup" exact component={SignUp} />
+      <Route path="/signup-success" exact component={SignUpSuccess} />
+      <Route path="/landing" exact component={Landing} />
       <Route path="/study" component={TeacherList} />
       <Route path="/give-classes" component={TeacherForm} />
     </BrowserRouter>

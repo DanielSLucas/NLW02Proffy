@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, FormEvent } from 'react';
+import { Link } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import CustomizedInput from '../../components/CustomizedInput';
 import Button from '../../components/Button';
@@ -12,17 +14,49 @@ const SignUp: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleSignUp = useCallback(async (event: FormEvent) => {
+    event.preventDefault();
+
+    const data = {
+      name,
+      email,
+      password,
+      confirmPassword,
+    };
+
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Nome obrigatório'),
+        email: Yup.string()
+          .required('E-mail obrigatório')
+          .email('Digite um e-mail válido'),
+        password: Yup.string().required('Senha obrigatória'),
+        confirmPassword: Yup.string().oneOf(
+          [Yup.ref('password'), undefined],
+          'Senhas não conferem'
+        ),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+    } catch (err) {
+      alert(err.message);
+    }
+  }, [email, password, name, confirmPassword])
 
   return (
     <div id="page-signup">
       <div className="signup-container">
         <header className="signup-header">
-          <a href="#">
+          <Link to="/">
             <img src={backIcon} alt="Voltar" />
-          </a>
+          </Link>
         </header>
-        
-        <form>
+
+        <form onSubmit={handleSignUp}>
           <legend>Cadastro</legend>
           <span>Preencha os dados abaixo <br /> para começar</span>
           <div id="form-input-border">
@@ -52,8 +86,8 @@ const SignUp: React.FC = () => {
               type="password"
               name="confirm_password"
               password
-              value={password}
-              onChange={e => setPassword(e.target.value)}
+              value={confirmPassword}
+              onChange={e => setConfirmPassword(e.target.value)}
               placeholder="Confirme sua senha"
             />
           </div>

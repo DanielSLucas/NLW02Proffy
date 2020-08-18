@@ -4,7 +4,7 @@
   height: 6.5rem;
   width: 100%;
   border: 0.1rem solid var(--color-line-in-white);
-  border-radius: 0.8rem;
+  /* border-radius: 0.8rem; */
   background: var(--color-box-footer);
 }
 

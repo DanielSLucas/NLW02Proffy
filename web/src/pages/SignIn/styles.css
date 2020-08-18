@@ -49,6 +49,14 @@
   margin-top: auto;
 }
 
+#form-input-border > div:first-child {
+  border-radius: 0.8rem 0.8rem 0 0;
+}
+
+#form-input-border > div:last-child {
+  border-radius: 0 0 0.8rem 0.8rem ;
+}
+
 .login-container form legend {
   color: black;
   font: 700 3.6rem Poppins;

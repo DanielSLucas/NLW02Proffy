@@ -33,21 +33,23 @@ const SignIn: React.FC = () => {
 
         <form>
           <legend>Fazer login</legend>
-          <CustomizedInput 
-            type="text" 
-            name="email"
-            value={email} 
-            onChange={e => setEmail(e.target.value)}
-            placeholder="E-mail"
-          />
-          <CustomizedInput 
-            type="password" 
-            name="password"
-            password
-            value={password} 
-            onChange={e => setPassword(e.target.value)} 
-            placeholder="Senha"
-          />
+          <div id="form-input-border">
+            <CustomizedInput 
+              type="text" 
+              name="email"
+              value={email} 
+              onChange={e => setEmail(e.target.value)}
+              placeholder="E-mail"
+            />
+            <CustomizedInput 
+              type="password" 
+              name="password"
+              password
+              value={password} 
+              onChange={e => setPassword(e.target.value)} 
+              placeholder="Senha"
+            />
+          </div>
           <div className="form-footer">
             <div className="rememberme">
               <input type="checkbox" name="" id=""/>

@@ -1,0 +1,137 @@
+#page-signup  {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: row;
+}
+
+#page-signup .intro-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 50%;
+  height: 100%;
+
+  color: var(--color-text-in-primary);
+  background: var(--color-primary);
+  background-image: url('../../assets/images/background.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 65rem;
+}
+
+#page-signup .intro-container .intro {
+  display: flex;
+  flex-direction: column;
+}
+
+.intro-container .intro span {
+  font-size: 2.4rem;
+  text-align: start;
+}
+
+#page-signup .signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 50%;
+  height: 100%;
+}
+
+#page-signup .signup-container .signup-header {
+  width: 40rem;
+  margin-top: 2rem;
+  margin-bottom: 15%;
+}
+
+#page-signup .signup-container form {
+  display: flex;
+  flex-direction: column;
+  width: 40rem;
+}
+
+#form-input-border > div:first-child {
+  border-radius: 0.8rem 0.8rem 0 0;
+}
+
+#form-input-border > div:last-child {
+  border-radius: 0 0 0.8rem 0.8rem ;
+}
+
+.signup-container form legend {
+  color: black;
+  font: 700 3.6rem Poppins;
+  margin-bottom: 2rem;
+}
+
+.signup-container form span {
+  color: var(-color-text-base);
+  font: 400 1.6rem Poppins;
+  line-height: 2.6rem;
+  margin-bottom: 4rem;
+}
+
+#page-signup .signup-container form button {
+  margin-top: 5rem;
+}
+
+@media(max-width: 1200px) {
+  #page-signup  {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  #page-signup .intro-container {  
+    width: 100%;
+    height: 50%;
+  
+    background-image: unset;
+  }
+
+  #page-signup .signup-container form {
+    margin-top: 1rem;
+  }
+
+  #page-signup .signup-container form legend {
+    margin-bottom: 1rem;
+  }
+
+  #page-signup .signup-container form span{
+    margin-bottom: 3rem;
+  }
+
+  #page-signup .signup-container form button {
+    margin-top: 1rem;
+  }
+
+  #page-signup .signup-container .signup-header {
+    margin-top: 3%;
+    margin-bottom: 0;
+  }
+
+}
+
+@media (max-width: 500px){
+  #page-signup .intro-container .intro {
+    width: 70%;
+  }
+
+  #page-signup .signup-container footer {
+    margin-top: 40%;
+    margin-bottom: 20%;
+  }
+  
+  #page-signup .signup-container form, 
+  #page-signup .signup-container .signup-header {
+    width: 37rem;
+  }
+
+  .intro-container .intro span {
+    font-size: 2rem;
+    text-align: start;
+  }
+}

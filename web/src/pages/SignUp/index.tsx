@@ -1,5 +1,5 @@
 import React, { useState, useCallback, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import CustomizedInput from '../../components/CustomizedInput';
@@ -9,8 +9,11 @@ import logoImg from '../../assets/images/logo.svg';
 import backIcon from '../../assets/images/icons/back.svg';
 
 import './styles.css';
+import api from '../../services/api';
 
 const SignUp: React.FC = () => {
+  const history = useHistory();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,7 +26,7 @@ const SignUp: React.FC = () => {
       name,
       email,
       password,
-      confirmPassword,
+      confirm_password: confirmPassword,
     };
 
     try {
@@ -33,7 +36,7 @@ const SignUp: React.FC = () => {
           .required('E-mail obrigatório')
           .email('Digite um e-mail válido'),
         password: Yup.string().required('Senha obrigatória'),
-        confirmPassword: Yup.string().oneOf(
+        confirm_password: Yup.string().oneOf(
           [Yup.ref('password'), undefined],
           'Senhas não conferem'
         ),
@@ -42,10 +45,14 @@ const SignUp: React.FC = () => {
       await schema.validate(data, {
         abortEarly: false,
       });
+
+      await api.post('users', data);
+
+      history.push('signup-success');
     } catch (err) {
       alert(err.message);
     }
-  }, [email, password, name, confirmPassword])
+  }, [name, email, password, confirmPassword, history])
 
   return (
     <div id="page-signup">

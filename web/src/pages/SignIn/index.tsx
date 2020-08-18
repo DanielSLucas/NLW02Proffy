@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import CustomizedInput from '../../components/CustomizedInput';
@@ -9,8 +9,12 @@ import logoImg from '../../assets/images/logo.svg';
 import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg';
 
 import './styles.css';
+import { useAuth } from '../../hooks/auth';
 
 const SignIn: React.FC = () => {
+  const { signIn } = useAuth();
+  const history = useHistory();
+
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -45,10 +49,18 @@ const SignIn: React.FC = () => {
       await schema.validate(data, {
         abortEarly: false,
       });
+
+      signIn({
+        email: data.email,
+        password: data.password,
+        rememberMe: data.rememberMe,
+      });
+
+      history.push('landing')
     } catch (err) {
       alert(err.message);
     }
-  }, [email, password, rememberMe])
+  }, [email, history, password, rememberMe, signIn])
 
   return (
     <div id="page-signin">

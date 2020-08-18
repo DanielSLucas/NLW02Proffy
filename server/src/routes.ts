@@ -16,7 +16,7 @@ const resetPasswordController = new ResetPasswordController();
 
 
 routes.post('/forgot-password', resetPasswordController.create);
-routes.post('/reset-password', resetPasswordController.update);
+routes.patch('/reset-password', resetPasswordController.update);
 
 routes.post('/users', usersController.create);
 routes.post('/sessions', sessionsController.create);

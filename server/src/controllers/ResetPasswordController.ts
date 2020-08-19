@@ -104,7 +104,7 @@ export default class ResetPasswordController {
 
       delete userExists.password;
 
-      return response.json({ userExists, token });
+      return response.json({ message: "done!" });
     } catch (err) {
       return response.status(400).json({ error: err.message })
     }

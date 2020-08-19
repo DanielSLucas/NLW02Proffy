@@ -26,6 +26,9 @@
 #page-signup .intro-container .intro {
   display: flex;
   flex-direction: column;
+
+  animation-name: appearFromRight;
+  animation-duration: 2s;
 }
 
 .intro-container .intro span {
@@ -40,6 +43,9 @@
 
   width: 50%;
   height: 100%;
+
+  animation-name: appearFromLeft;
+  animation-duration: 2s;
 }
 
 #page-signup .signup-container .signup-header {

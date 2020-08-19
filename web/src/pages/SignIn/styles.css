@@ -26,6 +26,9 @@
 #page-signin .intro-container .intro {
   display: flex;
   flex-direction: column;
+
+  animation-name: appearFromLeft;
+  animation-duration: 2s;
 }
 
 .intro-container .intro span {
@@ -47,6 +50,9 @@
   flex-direction: column;
   width: 35rem;
   margin-top: auto;
+
+  animation-name: appearFromRight;
+  animation-duration: 2s;
 }
 
 #form-input-border > div:first-child {
@@ -71,6 +77,9 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  animation-name: appearFromRight;
+  animation-duration: 2s;
 }
 
 .login-container form .form-footer input {
@@ -160,5 +169,27 @@
   .intro-container .intro span {
     font-size: 2rem;
     text-align: start;
+  }
+}
+
+@keyframes appearFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes appearFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

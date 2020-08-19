@@ -1,0 +1,125 @@
+#page-reset-password  {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: row;
+}
+
+#page-reset-password .intro-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 50%;
+  height: 100%;
+
+  color: var(--color-text-in-primary);
+  background: var(--color-primary);
+  background-image: url('../../assets/images/background.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 65rem;
+}
+
+#page-reset-password .intro-container .intro {
+  display: flex;
+  flex-direction: column;
+
+  animation-name: appearFromLeft;
+  animation-duration: 2s;
+}
+
+.intro-container .intro span {
+  font-size: 2.4rem;
+  text-align: start;
+}
+
+#page-reset-password .reset-password-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 50%;
+  height: 100%;
+}
+
+#page-reset-password .reset-password-container form {
+  display: flex;
+  flex-direction: column;
+  width: 35rem;
+
+  animation-name: appearFromRight;
+  animation-duration: 2s;
+}
+
+#form-input-border > div:first-child {
+  border-radius: 0.8rem 0.8rem 0 0;
+}
+
+#form-input-border > div:last-child {
+  border-radius: 0 0 0.8rem 0.8rem ;
+}
+
+.reset-password-container form legend {
+  color: black;
+  font: 700 3.6rem Poppins;
+  margin-bottom: 3rem;
+}
+
+@media(max-width: 1200px) {
+  #page-reset-password  {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #page-reset-password .intro-container {  
+    width: 100%;
+    height: 50%;
+  
+    background-image: unset;
+  }
+
+  #page-reset-password .reset-password-container form {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 500px){
+  #page-reset-password .intro-container .intro {
+    width: 70%;
+  }
+  
+  #page-reset-password .reset-password-container {
+    width: 70%;
+  }
+
+  .intro-container .intro span {
+    font-size: 2rem;
+    text-align: start;
+  }
+}
+
+@keyframes appearFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes appearFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

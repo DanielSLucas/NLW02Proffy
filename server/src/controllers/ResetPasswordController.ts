@@ -43,7 +43,7 @@ export default class ResetPasswordController {
 
       const newPassword = await hash(password, 8);
 
-      const updatedUser = await db('users').where({ id: userTokenExists.user_id }).update({ password: newPassword, })
+      await db('users').where({ id: userTokenExists.user_id }).update({ password: newPassword, })
 
       return response.json({ message: 'Updated!' })
     } catch (err) {

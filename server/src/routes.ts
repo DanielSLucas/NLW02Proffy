@@ -5,6 +5,7 @@ import UsersController from './controllers/UsersController';
 import SessionsController from './controllers/SessionsController';
 import ensureAuthenticated from './middlewares/ensureAuthenticated';
 import ResetPasswordController from './controllers/ResetPasswordController';
+import ScheduleController from './controllers/ScheduleController';
 
 
 const routes = express.Router();
@@ -13,6 +14,7 @@ const connectionsController = new ConnectionsController();
 const usersController = new UsersController();
 const sessionsController = new SessionsController();
 const resetPasswordController = new ResetPasswordController();
+const scheduleController = new ScheduleController();
 
 
 routes.post('/forgot-password', resetPasswordController.create);
@@ -25,8 +27,11 @@ routes.get('/connections', connectionsController.index);
 
 routes.use(ensureAuthenticated);
 
+routes.get('/logged-user', usersController.show);
+
 routes.get('/classes', classesControllers.index);
 routes.post('/classes', classesControllers.create);
+routes.delete('/schedule-item/:id', scheduleController.delete);
 
 routes.post('/connections', connectionsController.create);
 

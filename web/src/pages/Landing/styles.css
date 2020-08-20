@@ -3,6 +3,7 @@
   height: 100vh;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -10,24 +11,100 @@
   background: var(--color-primary);
 }
 
-#logo-container img {
-  height: 10rem;
+#page-landing-content {
+  max-width: none;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#page-landing-content .landing-header {
+  width: 120rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 3rem 3rem 2rem;
+}
+
+.landing-header .profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+}
+
+.landing-header .profile img {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 2rem;
+}
+
+.landing-header .profile span {
+  font: 500 1.4rem Poppins;
+  color: var(--color-text-in-primary);
+  margin-left: 2rem;
+}
+
+.landing-mid {
+  width: 120rem;
+  height: 50rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .hero-image {
-  width: 100%;
+  width: 60rem;
+  height: 35rem;
 }
 
 .logo-container {
-  text-align: center;
-  margin-bottom: 3.2rem;
+  align-self: center;
+  margin: 0;
+  text-align: left;
 }
 
 .logo-container h2 {
   font-weight: 500;
-  font-size: 2.4rem;
+  font-size: 3.6rem;
   line-height: 4.6rem;
   margin-top: 0.8rem;
+  text-align: initial;
+}
+
+#page-landing-content .landing-bottomside {
+  margin-top: auto;
+  width: 100%;
+  height: 35%;
+  background: var(--color-background);
+  display: flex;
+  justify-content: center;
+}
+
+.landing-bottomside .bottom-container {
+  width: 120rem;
+  margin-top: -8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.landing-bottomside .bottom-container .bottom-text {
+  display: flex;
+  flex-direction: row;
+  margin-right: auto;
+  width: 40%;
+}
+
+.bottom-container .bottom-text p {
+  font: 400 2rem Poppins;
+  color: var(--color-text-base);
 }
 
 .buttons-container {
@@ -81,62 +158,122 @@
 }
 
 .total-connections {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  color: var(--color-text-complement);
 
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left:  auto;
 }
 
 .total-connections img {
   margin-left: 0.8rem;
 }
 
-@media (min-width: 1100px) {
-  #page-landing-content {
-    max-width: 1100px;
+@media (max-width: 1300px) {
+  #page-landing-content .landing-header,
+  .landing-mid,
+  .landing-bottomside .bottom-container {
+    width: 90%;
+  }
+}
 
-    display: grid;
-    grid-template-rows: 350px 1fr;
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-areas: 
-      "logo hero hero"
-      "buttons buttons total"
-    ;
+@media (max-width: 1180px) {
+  .hero-image {
+    width: 50%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .landing-bottomside .bottom-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  .logo-container {
-    grid-area: logo;
-    align-self: center;
-    margin: 0;
-    text-align: left;
-  }
-
-  .logo-container h2 {
-    text-align: initial;
-    font-size: 3.6rem;
-  }
-
-  .logo-container img {
-    height: 100%;
+  .landing-mid {
+    display: flex;
+    flex-direction: column-reverse;    
   }
 
   .hero-image {
-    grid-area: hero;
-    justify-self: end;
+    width: 60rem;
   }
 
-  .buttons-container {
-    grid-area: buttons;
-    justify-content: flex-start;
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logo-container img {
+    width: 70%;
+  }
+
+  .logo-container h2 {
+    font-size: 2rem;
+    line-height: 3rem;
+  }
+
+  .landing-bottomside .bottom-container .bottom-text {
+    margin-right: 0;
+    margin-top: 2rem;
+    width: 60%;
+  }
+}
+
+
+@media (max-width: 700px) {
+  .hero-image {
+    width: 40rem;
+  }
+
+  .logo-container img {
+    width: 60%;
+  }
+
+  .logo-container h2 {
+    font-size: 1.5rem;
+    line-height: 2.5rem;
   }
 
   .buttons-container a {
-    font-size: 2.4rem;
+    width: 20rem;
   }
 
-  .total-connections {
-    grid-area: total;
-    justify-self: end;
+  .landing-bottomside .bottom-container .bottom-text {
+    width: 70%;
   }
+
+  .bottom-container .bottom-text p {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .landing-bottomside .bottom-container .bottom-text {
+    width: 80%;
+  }
+
+  .landing-mid {
+    height: 45rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .hero-image {
+    width: 35rem;
+  }
+
+  .landing-bottomside .bottom-container .bottom-text {
+    margin-top: 10rem;
+    width: 100%;
+  }
+
+  .buttons-container a {
+    width: 18rem;
+  }
+
 }

@@ -37,7 +37,10 @@ export default class ClassesController {
       })
       .where('classes.subject', '=', subject)
       .join('users', 'classes.user_id', '=', 'users.id')
-      .select(['classes.*', 'users.name', 'users.whatsapp', 'users.avatar', 'users.bio']);
+      .select([
+        'classes.*', 
+        'users.name', 'users.whatsapp', 'users.avatar', 'users.bio',
+      ]);
 
     const proffySchedule = await db('class_schedule')
       .where({ class_id: classes[0].id});

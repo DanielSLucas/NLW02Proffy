@@ -63,7 +63,7 @@ export default class ClassesController {
     const trx = await db.transaction();
 
     try {
-      const updateUser = await trx('users')
+      await trx('users')
         .where({ id: user_id })
         .update({
           avatar,

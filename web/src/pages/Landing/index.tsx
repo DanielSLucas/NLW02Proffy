@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import logoImg from '../../assets/images/logo.svg';
@@ -9,15 +9,21 @@ import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg';
 import signOutIcon from '../../assets/images/icons/sign-out.svg';
 
 import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
 
 import './styles.css';
 
 function Landing() {
+  const { user, signOut } = useAuth()
   const [totalConnections, setTotalConnections] = useState(0);
 
   useEffect(() => {
     api.get('connections').then(response => setTotalConnections(response.data.total));
   }, [totalConnections]);
+
+  const handleSignOut = useCallback(() => {
+    signOut();
+  }, [signOut])
 
   return (
     <div id="page-landing">
@@ -25,13 +31,15 @@ function Landing() {
         <header className="landing-header">
           <a href="" className="profile">
             <img
-              src="https://scontent-gru1-1.xx.fbcdn.net/v/t1.0-1/p160x160/22490118_1492632757482874_519952030961978183_n.jpg?_nc_cat=100&_nc_sid=dbb9e7&_nc_ohc=OG5Rui2kHLQAX_U1S7_&_nc_ht=scontent-gru1-1.xx&_nc_tp=6&oh=4bf3c82d92c789354f44f6da056e4e79&oe=5F62EC96"
-              alt="Lucas Santos"
+              src={user.avatar}
+              alt={user.name}
             />
-            <span>Lucas Santos</span>
+            <span>{user.name}</span>
           </a>
 
-          <img src={signOutIcon} alt="Sign out" />
+          <button onClick={handleSignOut}>
+            <img src={signOutIcon} alt="Sign out" />
+          </button>
         </header>
 
         <div className="landing-mid">

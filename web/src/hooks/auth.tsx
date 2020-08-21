@@ -9,13 +9,22 @@ interface SignInCredentials {
 
 interface AuthState {
   token: string;
-  user: object;
+  user: User;
+}
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  whatsapp: string;
+  bio: string;
 }
 
 interface AuthContextData {
-  user: object;
+  user: User;
   signIn(credentials: SignInCredentials): Promise<void>;
-  singOut(): void;
+  signOut(): void;
 }
 
 export const AuthContext = createContext<AuthContextData>(
@@ -53,7 +62,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     setData({ token, user });
   },[]);
 
-  const singOut = useCallback(() => {
+  const signOut = useCallback(() => {
     localStorage.removeItem('@Proffy:token');
     localStorage.removeItem('@Proffy:user');
 
@@ -61,7 +70,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, singOut }} >
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut }} >
       {children}
     </AuthContext.Provider>
   );

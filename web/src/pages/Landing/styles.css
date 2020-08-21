@@ -50,6 +50,24 @@
   margin-left: 2rem;
 }
 
+#page-landing-content .landing-header button {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 1rem;
+  border: 0;
+  
+  background: var(--color-primary-dark);
+  transition: background-color 0.2s;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#page-landing-content .landing-header button:hover {
+  background: var(--color-primary-light);
+}
+
 .landing-mid {
   width: 120rem;
   height: 50rem;
@@ -71,6 +89,7 @@
 }
 
 .logo-container h2 {
+  width: 60%;
   font-weight: 500;
   font-size: 3.6rem;
   line-height: 4.6rem;
@@ -146,7 +165,7 @@
 }
 
 .buttons-container a.study:hover {
-  background: var(--color-primary-ligh);
+  background: var(--color-primary-dark);
 }
 
 .buttons-container a.give-classes:hover {
@@ -176,6 +195,12 @@
   .landing-mid,
   .landing-bottomside .bottom-container {
     width: 90%;
+  }
+}
+
+@media (max-width: 1280px){
+  .logo-container h2 {
+    width: auto;
   }
 }
 

@@ -7,7 +7,9 @@ import Textarea from '../../components/Textarea';
 import Select from '../../components/Select';
 
 import warningIcon from '../../assets/images/icons/warning.svg';
+import rocketIcon from '../../assets/images/icons/rocket.svg';
 
+import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
 
 import './styles.css';
@@ -19,9 +21,9 @@ interface ScheduleItem {
 }
 
 function TeacherForm() {
+  const { user } = useAuth();
   const history = useHistory();
 
-  const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [bio, setBio] = useState('');
@@ -55,7 +57,6 @@ function TeacherForm() {
     e.preventDefault();
 
     api.post('classes', {
-      name,
       avatar,
       whatsapp,
       bio,
@@ -70,13 +71,15 @@ function TeacherForm() {
       alert('Erro no cadastro');
     });
 
-  }, [name, avatar, whatsapp, bio, subject, cost, scheduleItems, history]);
+  }, [avatar, whatsapp, bio, subject, cost, scheduleItems, history]);
 
   return (
     <div id="page-teacher-form" className="container">
       <PageHeader
         title="Que incrível que você quer dar aulas."
         description="O primeiro passo é preencher esse formulário de inscrição"
+        icon={rocketIcon}
+        span="Prepare-se! vai ser o máximo."
       />
 
       <main>
@@ -87,8 +90,8 @@ function TeacherForm() {
             <Input
               name="name"
               label="Nome completo"
-              value={name}
-              onChange={e => setName(e.target.value)}
+              value={user.name}
+              disabled
             />
 
             <Input

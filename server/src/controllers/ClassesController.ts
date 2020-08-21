@@ -58,7 +58,6 @@ export default class ClassesController {
       schedule
     } = request.body;
     const user_id = request.user.id;
-    console.log(user_id);
 
     const trx = await db.transaction();
 

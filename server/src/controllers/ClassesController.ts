@@ -9,6 +9,13 @@ interface ScheduleItem {
   to: string;
 }
 
+interface Class {
+  id: number;
+  subject: string;
+  cost: number;
+  user_id: string;
+}
+
 export default class ClassesController {
   async index(request: Request, response: Response) {
     const filters = request.query;
@@ -26,7 +33,7 @@ export default class ClassesController {
 
     const timeInMinutes = convertHourToMinutes(time);
 
-    const classes = await db('classes')
+    const classes: Class[] = await db('classes')
       .whereExists(function () {
         this.select('class_schedule.*')
           .from('class_schedule')
@@ -42,10 +49,22 @@ export default class ClassesController {
         'users.name', 'users.whatsapp', 'users.avatar', 'users.bio',
       ]);
 
-    const proffySchedule = await db('class_schedule')
-      .where({ class_id: classes[0].id});
+    // for (let i = 0; i < classes.length; i++) {
+    //   const element = classes[i];
+      
+    // }
 
-    return response.json({classes, proffySchedule});
+    // const schedule = classes.map( classItem => {
+    //   const result = db('class_schedule')
+    //     .where({ class_id: classItem.id}).then( (response) => {
+    //       return { classItem, response};
+    //     });
+    //   return result;
+    // })
+
+    
+
+    return response.json(classes);
   }
 
   async create(request: Request, response: Response) {

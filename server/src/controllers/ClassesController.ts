@@ -3,10 +3,12 @@ import { Request, Response } from 'express';
 import db from '../database/connection';
 import convertHourToMinutes from '../utils/convertHourToMinutes';
 
-interface ScheduleItem {
+export interface ScheduleItem {
+  id: number;
   week_day: number;
   from: string;
   to: string;
+  class_id: number;
 }
 
 interface Class {

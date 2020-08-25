@@ -72,7 +72,6 @@ export default class ClassesController {
 
   async create(request: Request, response: Response) {
     const {
-      avatar,
       whatsapp,
       bio,
       subject,
@@ -87,7 +86,6 @@ export default class ClassesController {
       await trx('users')
         .where({ id: user_id })
         .update({
-          avatar,
           whatsapp,
           bio,
         });

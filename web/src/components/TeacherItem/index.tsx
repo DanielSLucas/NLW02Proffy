@@ -7,6 +7,14 @@ import './styles.css'
 
 interface TeacherItemProps {
   teacher: Teacher;
+  schedule: ScheduleItem[];
+}
+
+export interface ScheduleItem {
+  week_day: number;
+  from: number;
+  to: number;
+  class_id: number;
 }
 
 export interface Teacher {
@@ -17,9 +25,10 @@ export interface Teacher {
   name: string;
   subject: string;
   whatsapp: string;
+  schedule: ScheduleItem[];
 }
 
-const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, schedule }) => {
 
   const createNewConnection = useCallback(() => {
     api.post('connections', {
@@ -40,6 +49,69 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
       <p>
         {teacher.bio}
       </p>
+
+      <div className="week-schedule">
+        <div className="schedule-item">
+          <div className="day">
+            <span>Dia</span>
+            <strong>Segunda</strong>
+          </div>
+          
+          <div className="time">
+            <span>Horário</span>
+            <strong>8h - 18h</strong>
+          </div>
+        </div>
+
+        <div className="schedule-item">
+          <div className="day">
+            <span>Dia</span>
+            <strong>Segunda</strong>
+          </div>
+          
+          <div className="time">
+            <span>Horário</span>
+            <strong>8h - 18h</strong>
+          </div>
+        </div>
+
+        <div className="schedule-item">
+          <div className="day">
+            <span>Dia</span>
+            <strong>Segunda</strong>
+          </div>
+          
+          <div className="time">
+            <span>Horário</span>
+            <strong>8h - 18h</strong>
+          </div>
+        </div>
+
+        <div className="schedule-item">
+          <div className="day">
+            <span>Dia</span>
+            <strong>Segunda</strong>
+          </div>
+          
+          <div className="time">
+            <span>Horário</span>
+            <strong>8h - 18h</strong>
+          </div>
+        </div>
+
+        <div className="schedule-item">
+          <div className="day">
+            <span>Dia</span>
+            <strong>Segunda</strong>
+          </div>
+          
+          <div className="time">
+            <span>Horário</span>
+            <strong>8h - 18h</strong>
+          </div>
+        </div>
+      </div>
+      
 
       <footer>
         <p>

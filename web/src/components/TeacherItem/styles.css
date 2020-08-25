@@ -38,6 +38,45 @@
   padding: 0 2rem;
   font-size: 1.6rem;
   line-height: 2.8rem;
+  text-align: justify;
+}
+
+.teacher-item .week-schedule {
+  margin-top: 3rem;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.teacher-item .week-schedule .schedule-item {
+  height: 13.6rem;
+  width: 12.2rem;
+  border: 0.1rem solid var(--color-line-in-white);
+  border-radius: 0.8rem;
+
+  background: var(--color-box-footer);
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.teacher-item .week-schedule .schedule-item .day,
+.teacher-item .week-schedule .schedule-item .time {
+  display: flex;
+  flex-direction: column;
+  margin: 0 1.6rem;
+}
+
+.teacher-item .week-schedule .schedule-item span {
+  font: 400 1.2rem Poppins;
+  margin: 0.4rem 0;
+}
+
+.teacher-item .week-schedule .schedule-item strong {
+  font: 700 1.6rem Archivo;
 }
 
 .teacher-item footer {

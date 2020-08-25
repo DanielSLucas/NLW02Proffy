@@ -17,6 +17,11 @@ export default class ProfileController {
     } = request.body;
     const user_id = request.user.id;
 
+    const user = await db('users').where('id', user_id).first();
+    if (!user) {
+      throw new Error("User not found");
+    }
+
     const trx = await db.transaction();
 
     try {
@@ -29,45 +34,38 @@ export default class ProfileController {
           bio,
         });
 
-      await trx('classes')
-        .where({ user_id })
-        .update({
-          subject,
-          cost,
-        });
+      let class_id: Number;
+      const classItem = await trx('classes').where({ user_id }).first();
 
-      const classesArray = await trx('classes').where({ user_id });
-      const class_id = classesArray[0];
+      if (classItem) {
+        class_id = classItem.id;
+        if (classItem.cost !== cost || classItem.subject !== subject) {
+          await trx('classes').where('user_id', user_id).update({
+            cost,
+            subject,
+          });
+        }
+        await trx('class_schedule').where('class_id', classItem.id).delete();
+      } else {
+        const [classItemId] = await trx('classes').insert({
+          user_id,
+          cost,
+          subject,
+        });
+        class_id = classItemId;
+      }
+
 
       const classSchedule: ScheduleItem[] = schedule.map((scheduleItem: ScheduleItem) => {
         return {
+          class_id,
           week_day: scheduleItem.week_day,
           from: convertHourToMinutes(scheduleItem.from),
           to: convertHourToMinutes(scheduleItem.to),
-          class_id,
         };
       });
 
-      async function insertOrUpdate(scheduleItem: ScheduleItem): Promise<void> {
-        const findScheduleItem = await trx('class_schedule')
-          .where({
-            week_day: scheduleItem.week_day,
-            class_id,
-          });
-        const foundScheduleItem: ScheduleItem = findScheduleItem[0];
-
-        if (foundScheduleItem) {
-          await trx('class_schedule').where({ id: foundScheduleItem.id, })
-            .update(scheduleItem)
-        } else {
-          await trx('class_schedule').insert(scheduleItem);
-        }
-      }
-
-      classSchedule.forEach(async scheduleItem => {
-        await insertOrUpdate(scheduleItem);
-      });
-
+      await trx('class_schedule').insert(classSchedule);
 
       await trx.commit();
 

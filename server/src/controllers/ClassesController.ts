@@ -51,22 +51,23 @@ export default class ClassesController {
         'users.name', 'users.whatsapp', 'users.avatar', 'users.bio',
       ]);
 
-    // for (let i = 0; i < classes.length; i++) {
-    //   const element = classes[i];
-      
-    // }
+    const classesIds = classes.map( classItem => classItem.id);
 
-    // const schedule = classes.map( classItem => {
-    //   const result = db('class_schedule')
-    //     .where({ class_id: classItem.id}).then( (response) => {
-    //       return { classItem, response};
-    //     });
-    //   return result;
-    // })
+    const schedules: ScheduleItem[] = await db('class_schedule')
+      .whereIn('class_id', classesIds)
+      .select('week_day', 'from', 'to', 'class_id');
 
+    const formatedClasses = classes.map( classItem => {
+      const classSchedule = schedules.filter( schedule => schedule.class_id === classItem.id);
+
+      return {
+        ...classItem,
+        schedule: classSchedule, 
+      }
+    });
     
 
-    return response.json(classes);
+    return response.json(formatedClasses);
   }
 
   async create(request: Request, response: Response) {

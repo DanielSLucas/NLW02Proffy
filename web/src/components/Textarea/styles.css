@@ -10,6 +10,12 @@
   font-size: 1.4rem;
 }
 
+.textarea-block span {
+  margin-left: 2rem;
+  font: 400 1.2rem Poppins;
+  color: #C1BCCC;
+}
+
 .textarea-block textarea {
   width: 100%;
   height: 16rem;

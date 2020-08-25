@@ -22,6 +22,27 @@
   padding: 0 2.4rem;
 }
 
+#page-teacher-form .form-firt-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+#page-teacher-form .form-firt-row img {
+  height: 8rem;
+  width: 8rem;
+  border-radius: 4rem;
+}
+
+#page-teacher-form .form-firt-row strong {
+  font-family: Archivo;
+  font-size: 2rem;
+  color: var(--color-text-title);
+  margin: 0 auto 0 2rem;
+}
+
 #page-teacher-form main fieldset + fieldset {
   margin-top: 6.4rem;
 }
@@ -112,6 +133,12 @@
 
   #page-teacher-form main fieldset {
     padding: 0 6.4rem;
+  }
+
+  #page-teacher-form main fieldset .about-class {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: 3rem;
   }
 
   #page-teacher-form main .schedule-item {

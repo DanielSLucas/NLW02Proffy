@@ -141,13 +141,13 @@
     column-gap: 3rem;
   }
 
-  #page-teacher-form main .schedule-item {
+  #page-teacher-form main .schedule-item-form {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     column-gap: 1.6rem;
   }
 
-  #page-teacher-form main .schedule-item .input-block {
+  #page-teacher-form main .schedule-item-form .input-block {
     margin-top: 0 !important;
   }
 

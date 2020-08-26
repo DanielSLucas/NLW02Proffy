@@ -24,7 +24,6 @@ function TeacherForm() {
   const { user } = useAuth();
   const history = useHistory();
 
-  const [avatar, setAvatar] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [bio, setBio] = useState('');
 
@@ -33,7 +32,7 @@ function TeacherForm() {
 
 
   const [scheduleItems, setScheduleItems] = useState<ScheduleItem[]>([
-    { week_day: 0, from: '', to: '' }
+    { week_day: 1, from: '', to: '' }
   ]);
 
   const addNewScheduleItem = useCallback(() => {
@@ -57,7 +56,6 @@ function TeacherForm() {
     e.preventDefault();
 
     api.post('classes', {
-      avatar,
       whatsapp,
       bio,
       subject,
@@ -71,7 +69,7 @@ function TeacherForm() {
       alert('Erro no cadastro');
     });
 
-  }, [avatar, whatsapp, bio, subject, cost, scheduleItems, history]);
+  }, [whatsapp, bio, subject, cost, scheduleItems, history]);
 
   return (
     <div id="page-teacher-form" className="container">
@@ -156,20 +154,18 @@ function TeacherForm() {
             </legend>
 
             {scheduleItems.map((scheduleItem, index) => (
-              <div key={scheduleItem.week_day} className="schedule-item">
+              <div key={index} className="schedule-item-form">
                 <Select
                   name="week_day"
                   label="Dia da semana"
                   value={scheduleItem.week_day}
                   onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}
                   options={[
-                    { value: '0', label: 'Domingo' },
                     { value: '1', label: 'Segunda-feira' },
                     { value: '2', label: 'Terça-feira' },
                     { value: '3', label: 'Quarta-feira' },
                     { value: '4', label: 'Quinta-feira' },
                     { value: '5', label: 'Sexta-feira' },
-                    { value: '6', label: 'Sábado' },
                   ]}
                 />
                 <Input

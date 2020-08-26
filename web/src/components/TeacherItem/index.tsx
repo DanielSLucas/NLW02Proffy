@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg';
 import api from '../../services/api';
 
 import './styles.css'
+import ScheduleItem from '../ScheduleItem';
 
 interface TeacherItemProps {
   teacher: Teacher;
@@ -36,6 +37,35 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, schedule }) => {
     });
   }, [teacher.id]);
 
+  console.log({teacher, schedule})
+
+  const daysSchedule = useMemo(() => {
+    const weekDays = [1,2,3,4,5];
+
+    const weekAvailability = weekDays.map(weekDay => {
+      
+      const foundDaySchedule = schedule
+        .find(daysSchedule => daysSchedule.week_day === weekDay);
+      
+      if (foundDaySchedule) {
+        return {
+          ...foundDaySchedule,
+          available: true
+        };
+      } else {
+        return { 
+          from: 0,
+          to: 0,
+          class_id: 0,
+          week_day: weekDay, 
+          available: false
+        }
+      }
+    });
+
+    return weekAvailability;
+  }, [schedule])
+
   return (
     <article className="teacher-item">
       <header>
@@ -51,65 +81,9 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, schedule }) => {
       </p>
 
       <div className="week-schedule">
-        <div className="schedule-item">
-          <div className="day">
-            <span>Dia</span>
-            <strong>Segunda</strong>
-          </div>
-          
-          <div className="time">
-            <span>Horário</span>
-            <strong>8h - 18h</strong>
-          </div>
-        </div>
-
-        <div className="schedule-item">
-          <div className="day">
-            <span>Dia</span>
-            <strong>Segunda</strong>
-          </div>
-          
-          <div className="time">
-            <span>Horário</span>
-            <strong>8h - 18h</strong>
-          </div>
-        </div>
-
-        <div className="schedule-item">
-          <div className="day">
-            <span>Dia</span>
-            <strong>Segunda</strong>
-          </div>
-          
-          <div className="time">
-            <span>Horário</span>
-            <strong>8h - 18h</strong>
-          </div>
-        </div>
-
-        <div className="schedule-item">
-          <div className="day">
-            <span>Dia</span>
-            <strong>Segunda</strong>
-          </div>
-          
-          <div className="time">
-            <span>Horário</span>
-            <strong>8h - 18h</strong>
-          </div>
-        </div>
-
-        <div className="schedule-item">
-          <div className="day">
-            <span>Dia</span>
-            <strong>Segunda</strong>
-          </div>
-          
-          <div className="time">
-            <span>Horário</span>
-            <strong>8h - 18h</strong>
-          </div>
-        </div>
+        {daysSchedule.map( daySchedule => { 
+          return <ScheduleItem  key={daySchedule.week_day} daySchedule={daySchedule}/>
+        })}
       </div>
       
 

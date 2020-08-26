@@ -1,0 +1,36 @@
+.schedule-item {
+  height: 13.6rem;
+  width: 12.2rem;
+  border: 0.1rem solid var(--color-line-in-white);
+  border-radius: 0.8rem;
+
+  background: var(--color-box-footer);
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.schedule-item .day,
+.schedule-item .time {
+  display: flex;
+  flex-direction: column;
+  margin: 0 1.6rem;
+}
+
+.schedule-item span {
+  font: 400 1.2rem Poppins;
+  margin: 0.4rem 0;
+}
+
+.schedule-item strong {
+  font: 700 1.6rem Archivo;
+}
+
+.schedule-item  .time strong {
+  font-size: 1.4rem;
+}
+
+.disabled {
+  opacity: 0.4;
+}

@@ -14,6 +14,7 @@ import ResetPassword from '../pages/ResetPassword';
 import Landing from '../pages/Landing';
 import TeacherList from '../pages/TeacherList';
 import TeacherForm from '../pages/TeacherForm';
+import Profile from '../pages/Profile';
 
 
 function Routes() {
@@ -30,6 +31,7 @@ function Routes() {
 
       
       <Route path="/landing" exact component={Landing} isPrivate/>
+      <Route path="/profile" exact component={Profile} isPrivate/>
       <Route path="/study" component={TeacherList} isPrivate/>
       <Route path="/give-classes" component={TeacherForm} isPrivate/>
     </BrowserRouter>

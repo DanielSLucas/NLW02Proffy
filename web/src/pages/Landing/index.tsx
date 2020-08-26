@@ -29,13 +29,13 @@ function Landing() {
     <div id="page-landing">
       <div id="page-landing-content" className="container">
         <header className="landing-header">
-          <a href="" className="profile">
+          <Link to="Profile" className="profile">
             <img
               src={user.avatar}
               alt={user.name}
             />
             <span>{user.name}</span>
-          </a>
+          </Link>
 
           <button onClick={handleSignOut}>
             <img src={signOutIcon} alt="Sign out" />

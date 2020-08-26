@@ -7,7 +7,7 @@ import backIcon from '../../assets/images/icons/back.svg';
 import './styles.css'
 
 interface PageHeaderProps {
-  title: string;
+  title?: string;
   description?: string
   icon?: string;
   span?: string;
@@ -26,19 +26,22 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, description, children, i
       </div>
 
       <div className="header-content">
-        <strong>{title}</strong>
+        {title && <strong>{title}</strong>}
 
-        <div className="header-description">
-          {description && <p>{description}</p>}
-          
-          { span && (
-            <div className="span">
-              <img src={icon} alt={span}/>
-              <span>{span}</span>
-            </div>
-          )}
+        {description && (
+          <div className="header-description">
+            <p>{description}</p>
 
-        </div>
+            {span && (
+              <div className="span">
+                <img src={icon} alt={span} />
+                <span>{span}</span>
+              </div>
+            )}
+
+          </div>
+        )}
+
         {children}
       </div>
     </header>

@@ -41,7 +41,7 @@ interface ProfileInfo {
 }
 
 function Profile() {
-  const { user } = useAuth();
+  const { updateUser } = useAuth();
   const history = useHistory();
 
   const [profileInfo, setProfileInfo] = useState<ProfileInfo>({
@@ -170,14 +170,15 @@ function Profile() {
       });
 
 
-      await api.put('profile', {
+      await api.put('profile', data);
+
+      updateUser({
+        id: profileInfo.user.id,
         name,
         avatar,
         whatsapp,
         bio,
-        subject,
-        cost: Number(cost),
-        schedule: scheduleItems
+        email,
       });
 
       alert('Perfil atualizado com sucesso!');
@@ -186,7 +187,7 @@ function Profile() {
     } catch (err) {
       alert(err.message);
     }
-  }, [name, avatar, email, whatsapp, bio, subject, cost, scheduleItems, history]);
+  }, [name, avatar, email, whatsapp, bio, subject, cost, scheduleItems, updateUser, profileInfo.user.id, history]);
 
   return (
     <div id="page-profile" className="container">

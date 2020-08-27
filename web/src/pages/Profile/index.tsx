@@ -1,5 +1,6 @@
 import React, { useCallback, useState, FormEvent, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
@@ -12,6 +13,7 @@ import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
 
 import './styles.css';
+import convertMinutesToHour from '../../utils/convertMinutesToHour';
 
 interface ScheduleItem {
   id: number;
@@ -78,7 +80,9 @@ function Profile() {
 
   useEffect(() => { 
     api.get<ProfileInfo>('logged-user').then(response => setProfileInfo(response.data));
+  }, [])
 
+  useEffect(() => {
     setName(profileInfo.user.name);
     setAvatar(profileInfo.user.avatar);
     setEmail(profileInfo.user.email);
@@ -86,8 +90,17 @@ function Profile() {
     setBio(profileInfo.user.bio);
     setSubject(profileInfo.user_class.subject);
     setCost(profileInfo.user_class.cost.toString());
-    setScheduleItems(profileInfo.class_schedule);
-  }, [bio, cost, profileInfo, subject, whatsapp])
+
+    const formattedSchedule = profileInfo.class_schedule.map( scheduleItem => {
+      return {
+        ...scheduleItem,
+        from: convertMinutesToHour(Number(scheduleItem.from)),
+        to: convertMinutesToHour(Number(scheduleItem.to)),
+      }
+    })
+
+    setScheduleItems(formattedSchedule);
+  }, [profileInfo])
 
 
   const [scheduleItems, setScheduleItems] = useState<ScheduleItem[]>([
@@ -97,9 +110,17 @@ function Profile() {
   const addNewScheduleItem = useCallback(() => {
     setScheduleItems([
       ...scheduleItems,
-      { id: 0, week_day: 0, from: '', to: '' }
+      { id: 0, week_day: 1, from: '', to: '' }
     ])
   }, [scheduleItems]);
+
+  const removeScheduleItem = useCallback(async (id: number) => {
+    await api.delete(`/schedule-item/${id}`);
+
+    const newScheduleItems = scheduleItems.filter( scheduleItem => scheduleItem.id !== id);
+
+    setScheduleItems(newScheduleItems);
+  }, [scheduleItems])
 
   const setScheduleItemValue = useCallback((position: number, field: string, value: string) => {
     const updateScheduleItems = scheduleItems.map((scheduleItem, index) => {
@@ -111,25 +132,61 @@ function Profile() {
     setScheduleItems(updateScheduleItems);
   }, [scheduleItems]);
 
-  const handleCreateClass = useCallback((e: FormEvent) => {
+  const handleUpdateProfile = useCallback(async (e: FormEvent) => {
     e.preventDefault();
 
-    api.post('classes', {
+    const data = {
+      name,
       avatar,
+      email,
       whatsapp,
       bio,
       subject,
       cost: Number(cost),
       schedule: scheduleItems
-    }).then(() => {
-      alert('Cadastro realizado com sucesso!');
+    }
+
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Nome obrigatório'),
+        avatar: Yup.string(),
+        email: Yup.string()
+          .required('E-mail obrigatório')
+          .email('Digite um e-mail válido'),
+        whatsapp: Yup.string().required('Whatsapp obrigatório'),
+        bio: Yup.string(),
+        subject: Yup.string().required('Matéria obrigatória'),
+        cost: Yup.number().required('Custo/aula obrigatório'),
+        schedule: Yup.array().of(Yup.object().shape({
+          id: Yup.number(),
+          week_day: Yup.number(),
+          from: Yup.string(),
+          to: Yup.string(),
+        }))
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+
+      await api.put('profile', {
+        name,
+        avatar,
+        whatsapp,
+        bio,
+        subject,
+        cost: Number(cost),
+        schedule: scheduleItems
+      });
+
+      alert('Perfil atualizado com sucesso!');
 
       history.push('/');
-    }).catch(() => {
-      alert('Erro no cadastro');
-    });
-
-  }, [avatar, whatsapp, bio, subject, cost, scheduleItems, history]);
+    } catch (err) {
+      alert(err.message);
+    }
+  }, [name, avatar, email, whatsapp, bio, subject, cost, scheduleItems, history]);
 
   return (
     <div id="page-profile" className="container">
@@ -142,7 +199,7 @@ function Profile() {
       </PageHeader>
 
       <main>
-        <form onSubmit={handleCreateClass}>
+        <form onSubmit={handleUpdateProfile}>
           <fieldset>
             <legend>Seus dados</legend>
 
@@ -236,7 +293,7 @@ function Profile() {
             </legend>
 
             {scheduleItems.map((scheduleItem, index) => (
-              <div key={scheduleItem.week_day} className="schedule-item-form">
+              <div key={index} className="schedule-item-form">
                 <Select
                   name="week_day"
                   label="Dia da semana"
@@ -267,7 +324,9 @@ function Profile() {
 
                 <div className="remove-button">
                   <div className="line" />
-                  <button>Excluir horário</button>
+                  <button type="button" onClick={() => removeScheduleItem(scheduleItem.id)}>
+                    Excluir horário
+                  </button>
                   <div className="line" />
                 </div>
               </div>

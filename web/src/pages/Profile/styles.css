@@ -43,27 +43,6 @@
   padding: 0 2.4rem;
 }
 
-#page-profile .form-firt-row {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 3rem;
-}
-
-#page-profile .form-firt-row img {
-  height: 8rem;
-  width: 8rem;
-  border-radius: 4rem;
-}
-
-#page-profile .form-firt-row strong {
-  font-family: Archivo;
-  font-size: 2rem;
-  color: var(--color-text-title);
-  margin: 0 auto 0 2rem;
-}
-
 #page-profile main fieldset + fieldset {
   margin-top: 6.4rem;
 }
@@ -96,6 +75,33 @@
 #page-profile main fieldset .select-block + .input-block,
 #page-profile main fieldset .input-block + .textarea-block {
   margin-top: 2.4rem;
+}
+
+#page-profile .schedule-item-form .remove-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+#page-profile .schedule-item-form .remove-button button {
+  width: 100%;
+  background: none;
+  border: 0;
+  font: 600 1.4rem Archivo;
+  color: #E33D3D;
+  transition: text-shadow 0.2s;
+}
+
+#page-profile .schedule-item-form .remove-button button:hover {
+  text-shadow: 0.1rem 0.1rem rgba(0, 0, 0, 0.1);
+}
+
+#page-profile .schedule-item-form .remove-button .line {
+  height: 0.1rem;
+  width: 100%;
+  background: var(--color-line-in-white);
 }
 
 #page-profile main label {
@@ -170,6 +176,13 @@
     padding: 0 6.4rem;
   }
 
+  #page-profile main fieldset .email-wpp {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: 3rem;
+    margin: 2rem 0;
+  } 
+
   #page-profile main fieldset .about-class {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -184,6 +197,15 @@
 
   #page-profile main .schedule-item-form .input-block {
     margin-top: 0 !important;
+  }
+
+  #page-profile .schedule-item-form .remove-button {
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
+  #page-profile .schedule-item-form .remove-button button {
+    width: 65%;
   }
 
   #page-profile main footer {

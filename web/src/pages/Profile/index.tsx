@@ -1,4 +1,4 @@
-import React, { useCallback, useState, FormEvent } from 'react'
+import React, { useCallback, useState, FormEvent, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 
 import PageHeader from '../../components/PageHeader';
@@ -7,7 +7,6 @@ import Textarea from '../../components/Textarea';
 import Select from '../../components/Select';
 
 import warningIcon from '../../assets/images/icons/warning.svg';
-import rocketIcon from '../../assets/images/icons/rocket.svg';
 
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
@@ -15,15 +14,60 @@ import api from '../../services/api';
 import './styles.css';
 
 interface ScheduleItem {
+  id: number;
   week_day: number;
   from: string;
   to: string;
+}
+
+interface ProfileInfo {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    avatar: string;
+    whatsapp: string;
+    bio: string;
+  },
+  user_class: {
+    id: number;
+    subject: string;
+    cost: number;
+    user_id: string;
+  },
+  class_schedule: ScheduleItem[];
 }
 
 function Profile() {
   const { user } = useAuth();
   const history = useHistory();
 
+  const [profileInfo, setProfileInfo] = useState<ProfileInfo>({
+    user: {
+      id: '',
+      name: '',
+      email: '',
+      avatar: '',
+      whatsapp: '',
+      bio: '',
+    },
+    user_class: {
+      id: 0,
+      subject: '',
+      cost: 0,
+      user_id: '',
+    },
+    class_schedule: [
+      {
+        id: 0,
+        week_day: 0,
+        from: '',
+        to: '',
+      }
+    ]
+  });
+
+  const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('');
   const [email, setEmail] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
@@ -32,15 +76,28 @@ function Profile() {
   const [subject, setSubject] = useState('');
   const [cost, setCost] = useState('');
 
+  useEffect(() => { 
+    api.get<ProfileInfo>('logged-user').then(response => setProfileInfo(response.data));
+
+    setName(profileInfo.user.name);
+    setAvatar(profileInfo.user.avatar);
+    setEmail(profileInfo.user.email);
+    setWhatsapp(profileInfo.user.whatsapp);
+    setBio(profileInfo.user.bio);
+    setSubject(profileInfo.user_class.subject);
+    setCost(profileInfo.user_class.cost.toString());
+    setScheduleItems(profileInfo.class_schedule);
+  }, [bio, cost, profileInfo, subject, whatsapp])
+
 
   const [scheduleItems, setScheduleItems] = useState<ScheduleItem[]>([
-    { week_day: 0, from: '', to: '' }
+    { id: 0, week_day: 0, from: '', to: '' }
   ]);
 
   const addNewScheduleItem = useCallback(() => {
     setScheduleItems([
       ...scheduleItems,
-      { week_day: 0, from: '', to: '' }
+      { id: 0, week_day: 0, from: '', to: '' }
     ])
   }, [scheduleItems]);
 
@@ -78,9 +135,9 @@ function Profile() {
     <div id="page-profile" className="container">
       <PageHeader>
         <div className="profile-header">
-          <img src={user.avatar} alt={user.name} />
-          <strong>{user.name}</strong>
-          <p>Matemática</p>
+          <img src={profileInfo.user.avatar} alt={profileInfo.user.name} />
+          <strong>{profileInfo.user.name}</strong>
+          <p>{profileInfo.user_class.subject}</p>
         </div>
       </PageHeader>
 
@@ -92,8 +149,8 @@ function Profile() {
             <Input
               name="name"
               label="Nome completo"
-              value={user.name}
-              disabled
+              value={name}
+              onChange={e => setName(e.target.value)}
             />
 
             <Input
@@ -103,21 +160,27 @@ function Profile() {
               onChange={e => setAvatar(e.target.value)}
             />
 
-            <Input
-              name="email"
-              label="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
+            <div className="email-wpp">
+              <div>
+                <Input
+                  name="email"
+                  label="E-mail"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+              </div>
 
-            <Input
-              name="whatsapp"
-              label="Whatsapp"
-              value={whatsapp}
-              isTel
-              placeholder="( ) _ ____ ____"
-              onChange={e => setWhatsapp(e.target.value)}
-            />
+              <div>
+                <Input
+                  name="whatsapp"
+                  label="Whatsapp"
+                  value={whatsapp}
+                  isTel
+                  placeholder="( ) _ ____ ____"
+                  onChange={e => setWhatsapp(e.target.value)}
+                />
+              </div>
+            </div>
 
             <Textarea
               name="bio"
@@ -131,29 +194,36 @@ function Profile() {
           <fieldset>
             <legend>Sobre a aula</legend>
 
-            <Select
-              name="subject"
-              label="Matéria"
-              value={subject}
-              onChange={e => setSubject(e.target.value)}
-              options={[
-                { value: 'Artes', label: 'Artes' },
-                { value: 'Biologia', label: 'Biologia' },
-                { value: 'Matemática', label: 'Matemática' },
-                { value: 'Inglês', label: 'Inglês' },
-                { value: 'Geografia', label: 'Geografia' },
-                { value: 'História', label: 'História' },
-                { value: 'Português', label: 'Português' },
-                { value: 'Química', label: 'Química' },
-                { value: 'Física', label: 'Física' },
-              ]}
-            />
-            <Input
-              name="cost"
-              label="Custo da sua hora por aula"
-              value={cost}
-              onChange={e => setCost(e.target.value)}
-            />
+            <div className="about-class">
+              <div className="select-container">
+                <Select
+                  name="subject"
+                  label="Matéria"
+                  placeholder="Selecione qual você quer ensinar"
+                  value={subject}
+                  onChange={e => setSubject(e.target.value)}
+                  options={[
+                    { value: 'Artes', label: 'Artes' },
+                    { value: 'Biologia', label: 'Biologia' },
+                    { value: 'Matemática', label: 'Matemática' },
+                    { value: 'Inglês', label: 'Inglês' },
+                    { value: 'Geografia', label: 'Geografia' },
+                    { value: 'História', label: 'História' },
+                    { value: 'Português', label: 'Português' },
+                    { value: 'Química', label: 'Química' },
+                    { value: 'Física', label: 'Física' },
+                  ]}
+                />
+              </div>
+              <div className="cost-input">
+                <Input
+                  name="cost"
+                  label="Custo da sua hora por aula"
+                  value={cost}
+                  onChange={e => setCost(e.target.value)}
+                />
+              </div>
+            </div>
 
           </fieldset>
 
@@ -194,6 +264,12 @@ function Profile() {
                   value={scheduleItem.to}
                   onChange={e => setScheduleItemValue(index, 'to', e.target.value)}
                 />
+
+                <div className="remove-button">
+                  <div className="line" />
+                  <button>Excluir horário</button>
+                  <div className="line" />
+                </div>
               </div>
             ))}
 

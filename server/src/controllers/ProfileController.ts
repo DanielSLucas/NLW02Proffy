@@ -9,6 +9,7 @@ export default class ProfileController {
     const {
       name,
       avatar,
+      email,
       whatsapp,
       bio,
       subject,
@@ -30,6 +31,7 @@ export default class ProfileController {
         .update({
           name,
           avatar,
+          email,
           whatsapp,
           bio,
         });

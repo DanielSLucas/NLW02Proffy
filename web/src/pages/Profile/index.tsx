@@ -1,4 +1,4 @@
-import React, { useCallback, useState, FormEvent, useEffect } from 'react'
+import React, { useCallback, useState, FormEvent, useEffect, ChangeEvent } from 'react'
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
@@ -8,6 +8,7 @@ import Textarea from '../../components/Textarea';
 import Select from '../../components/Select';
 
 import warningIcon from '../../assets/images/icons/warning.svg';
+import cameraIcon from '../../assets/images/icons/camera.svg';
 
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
@@ -42,7 +43,7 @@ interface ProfileInfo {
 }
 
 function Profile() {
-  const { updateUser } = useAuth();
+  const { user, updateUser } = useAuth();
   const history = useHistory();
 
   const [profileInfo, setProfileInfo] = useState<ProfileInfo>({
@@ -72,7 +73,6 @@ function Profile() {
   });
 
   const [name, setName] = useState('');
-  const [avatar, setAvatar] = useState('');
   const [email, setEmail] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [bio, setBio] = useState('');
@@ -86,7 +86,6 @@ function Profile() {
 
   useEffect(() => {
     setName(profileInfo.user.name);
-    setAvatar(profileInfo.user.avatar);
     setEmail(profileInfo.user.email);
     setWhatsapp(profileInfo.user.whatsapp);
     setBio(profileInfo.user.bio);
@@ -175,7 +174,7 @@ function Profile() {
       updateUser({
         id: profileInfo.user.id,
         name,
-        avatar,
+        avatar: profileInfo.user.avatar,
         avatar_url: profileInfo.user.avatar_url,
         whatsapp,
         bio,
@@ -188,14 +187,31 @@ function Profile() {
     } catch (err) {
       alert(err.message);
     }
-  }, [name, avatar, email, whatsapp, bio, subject, cost, scheduleItems, updateUser, profileInfo.user.id, profileInfo.user.avatar_url, history]);
+  }, [name, email, whatsapp, bio, subject, cost, scheduleItems, updateUser, profileInfo.user.id, profileInfo.user.avatar, profileInfo.user.avatar_url, history]);
+
+  const handleAvatarChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const data = new FormData();
+
+      data.append('avatar', e.target.files[0]);
+
+      api.patch('avatar', data).then(response => {
+        updateUser(response.data.user)
+      });
+    }
+  }, [updateUser])
 
   return (
     <div id="page-profile" className="container">
       <PageHeader>
         <div className="profile-header">
-          <img src={profileInfo.user.avatar_url} alt={profileInfo.user.name} />
-          <strong>{profileInfo.user.name}</strong>
+          <img src={user.avatar_url} alt={user.name} />
+          <label htmlFor="avatar">
+            <img src={cameraIcon} alt="Camera" id="cameraIcon"/>
+
+            <input type="file" id="avatar" onChange={handleAvatarChange}/>
+          </label>
+          <strong>{user.name}</strong>
           <p>{profileInfo.user_class.subject}</p>
         </div>
       </PageHeader>
@@ -211,13 +227,6 @@ function Profile() {
               value={name}
               onChange={e => setName(e.target.value)}
             />
-
-            {/* <Input
-              name="avatar"
-              label="Avatar"
-              value={avatar}
-              onChange={e => setAvatar(e.target.value)}
-            /> */}
 
             <div className="email-wpp">
               <div>

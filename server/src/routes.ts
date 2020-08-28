@@ -1,4 +1,8 @@
 import express from 'express';
+import multer from 'multer';
+
+import uploadConfig from './config/upload';
+
 import ClassesController from './controllers/ClassesController';
 import ConnectionsController from './controllers/ConnectionsController';
 import UsersController from './controllers/UsersController';
@@ -8,7 +12,7 @@ import ResetPasswordController from './controllers/ResetPasswordController';
 import ScheduleController from './controllers/ScheduleController';
 import ProfileController from './controllers/ProfileController';
 
-
+const upload = multer(uploadConfig);
 const routes = express.Router();
 const classesControllers = new ClassesController();
 const connectionsController = new ConnectionsController();
@@ -26,11 +30,12 @@ routes.post('/users', usersController.create);
 routes.post('/sessions', sessionsController.create);
 routes.get('/connections', connectionsController.index);
 
-
+//ROTAS AUTENTICADAS A PARTIR DAQUI
 routes.use(ensureAuthenticated);
 
 routes.get('/logged-user', usersController.show);
 routes.put('/profile', profileController.update);
+routes.patch('/avatar', upload.single('avatar'), profileController.updateAvatar);
 
 routes.get('/classes', classesControllers.index);
 routes.post('/classes', classesControllers.create);

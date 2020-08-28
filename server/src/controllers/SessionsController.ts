@@ -27,6 +27,11 @@ export default class SessionsController {
 
       delete user.password;
 
+      const toBeReturnedUser = {
+        ...user,
+        avatar_url: `http://localhost:3333/files/${user.avatar}`
+      }
+
       const expiresIn = rememberMe ? '30d' : '1d';
 
       const token = sign({}, authConfig.jwt.secret, {
@@ -34,7 +39,7 @@ export default class SessionsController {
         expiresIn,
       });
 
-      return response.json({ user, token })
+      return response.json({ user: toBeReturnedUser, token })
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }

@@ -26,13 +26,18 @@ export default class UsersController {
 
       delete user.password;
 
+      const toBeReturnedUser = {
+        ...user,
+        avatar_url: `http://localhost:3333/files/${user.avatar}`
+      }
+
       const classArray = await db('classes').where('classes.user_id', '=', id);
       const proffyClass = classArray[0];
 
       const classSchedule = await db('class_schedule')
         .where('class_schedule.class_id', '=', proffyClass.id);
       
-      return response.json({ user, user_class: proffyClass, class_schedule: classSchedule });
+      return response.json({ user: toBeReturnedUser, user_class: proffyClass, class_schedule: classSchedule });
     } catch (err) {
       return response.status(400).json({ err: err.message });
     }

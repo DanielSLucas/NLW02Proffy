@@ -28,6 +28,7 @@ interface ProfileInfo {
     name: string;
     email: string;
     avatar: string;
+    avatar_url: string;
     whatsapp: string;
     bio: string;
   },
@@ -50,6 +51,7 @@ function Profile() {
       name: '',
       email: '',
       avatar: '',
+      avatar_url: '',
       whatsapp: '',
       bio: '',
     },
@@ -137,7 +139,6 @@ function Profile() {
 
     const data = {
       name,
-      avatar,
       email,
       whatsapp,
       bio,
@@ -149,7 +150,6 @@ function Profile() {
     try {
       const schema = Yup.object().shape({
         name: Yup.string().required('Nome obrigatório'),
-        avatar: Yup.string(),
         email: Yup.string()
           .required('E-mail obrigatório')
           .email('Digite um e-mail válido'),
@@ -176,6 +176,7 @@ function Profile() {
         id: profileInfo.user.id,
         name,
         avatar,
+        avatar_url: profileInfo.user.avatar_url,
         whatsapp,
         bio,
         email,
@@ -187,13 +188,13 @@ function Profile() {
     } catch (err) {
       alert(err.message);
     }
-  }, [name, avatar, email, whatsapp, bio, subject, cost, scheduleItems, updateUser, profileInfo.user.id, history]);
+  }, [name, avatar, email, whatsapp, bio, subject, cost, scheduleItems, updateUser, profileInfo.user.id, profileInfo.user.avatar_url, history]);
 
   return (
     <div id="page-profile" className="container">
       <PageHeader>
         <div className="profile-header">
-          <img src={profileInfo.user.avatar} alt={profileInfo.user.name} />
+          <img src={profileInfo.user.avatar_url} alt={profileInfo.user.name} />
           <strong>{profileInfo.user.name}</strong>
           <p>{profileInfo.user_class.subject}</p>
         </div>
@@ -211,12 +212,12 @@ function Profile() {
               onChange={e => setName(e.target.value)}
             />
 
-            <Input
+            {/* <Input
               name="avatar"
               label="Avatar"
               value={avatar}
               onChange={e => setAvatar(e.target.value)}
-            />
+            /> */}
 
             <div className="email-wpp">
               <div>

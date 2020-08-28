@@ -31,7 +31,7 @@ function Landing() {
         <header className="landing-header">
           <Link to="Profile" className="profile">
             <img
-              src={user.avatar}
+              src={user.avatar_url}
               alt={user.name}
             />
             <span>{user.name}</span>

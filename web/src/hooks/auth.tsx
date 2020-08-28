@@ -17,6 +17,7 @@ interface User {
   name: string;
   email: string;
   avatar: string;
+  avatar_url: string;
   whatsapp: string;
   bio: string;
 }

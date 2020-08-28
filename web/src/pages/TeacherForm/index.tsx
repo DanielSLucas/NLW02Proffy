@@ -86,7 +86,7 @@ function TeacherForm() {
             <legend>Seus dados</legend>
 
             <div className="form-firt-row">
-              <img src={user.avatar} alt={user.name} />
+              <img src={user.avatar_url} alt={user.name} />
               <strong>{user.name}</strong>
 
               <Input

@@ -1,5 +1,4 @@
 import React, { useCallback, useState, FormEvent, useEffect, ChangeEvent } from 'react'
-import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import PageHeader from '../../components/PageHeader';
@@ -44,7 +43,6 @@ interface ProfileInfo {
 
 function Profile() {
   const { user, updateUser } = useAuth();
-  const history = useHistory();
 
   const [profileInfo, setProfileInfo] = useState<ProfileInfo>({
     user: {
@@ -183,11 +181,10 @@ function Profile() {
 
       alert('Perfil atualizado com sucesso!');
 
-      history.push('/');
     } catch (err) {
       alert(err.message);
     }
-  }, [name, email, whatsapp, bio, subject, cost, scheduleItems, updateUser, profileInfo.user.id, profileInfo.user.avatar, profileInfo.user.avatar_url, history]);
+  }, [name, email, whatsapp, bio, subject, cost, scheduleItems, updateUser, profileInfo.user.id, profileInfo.user.avatar, profileInfo.user.avatar_url]);
 
   const handleAvatarChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -205,7 +202,7 @@ function Profile() {
     <div id="page-profile" className="container">
       <PageHeader>
         <div className="profile-header">
-          <img src={user.avatar_url} alt={user.name} />
+          {user.avatar ? (<img src={user.avatar_url} alt={user.name} />) : <br/>}
           <label htmlFor="avatar">
             <img src={cameraIcon} alt="Camera" id="cameraIcon"/>
 

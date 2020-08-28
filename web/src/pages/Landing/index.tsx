@@ -30,10 +30,12 @@ function Landing() {
       <div id="page-landing-content" className="container">
         <header className="landing-header">
           <Link to="Profile" className="profile">
-            <img
+            { user.avatar && (
+              <img
               src={user.avatar_url}
               alt={user.name}
-            />
+              />
+            )}
             <span>{user.name}</span>
           </Link>
 

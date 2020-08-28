@@ -21,6 +21,7 @@ export interface ScheduleItem {
 export interface Teacher {
   id: number;
   avatar: string;
+  avatar_url: string;
   bio: string;
   cost: number;
   name: string;
@@ -69,7 +70,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, schedule }) => {
   return (
     <article className="teacher-item">
       <header>
-        <img src={teacher.avatar} alt={teacher.name} />
+        <img src={teacher.avatar_url} alt={teacher.name} />
         <div>
           <strong>{teacher.name}</strong>
           <span>{teacher.subject}</span>

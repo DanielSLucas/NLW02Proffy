@@ -50,7 +50,7 @@ const SignIn: React.FC = () => {
         abortEarly: false,
       });
 
-      signIn({
+      await signIn({
         email: data.email,
         password: data.password,
         rememberMe: data.rememberMe,
@@ -58,7 +58,7 @@ const SignIn: React.FC = () => {
 
       history.push('landing')
     } catch (err) {
-      alert(err.message);
+      alert("Erro no login, tente novamente");
     }
   }, [email, history, password, rememberMe, signIn])
 

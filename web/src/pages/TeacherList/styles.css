@@ -18,6 +18,7 @@
   color: var(--color-button-text);
   border: 0;
   border-radius: 0.8rem;
+  outline: none;
   cursor: pointer;
   font: 700 1.6rem Archivo;
   display: flex;
@@ -35,6 +36,13 @@
 #page-teacher-list main {
   margin: 3.2rem auto;
   width: 90%;
+}
+
+#page-teacher-list main p {
+  font: 400 1.6rem Poppins;
+  color: var(--color-text-complement);
+  text-align: center;
+  margin-top: 5rem;
 }
 
 

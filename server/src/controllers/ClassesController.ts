@@ -16,6 +16,7 @@ interface Class {
   subject: string;
   cost: number;
   user_id: string;
+  avatar: string;
 }
 
 export default class ClassesController {
@@ -57,11 +58,13 @@ export default class ClassesController {
       .whereIn('class_id', classesIds)
       .select('week_day', 'from', 'to', 'class_id');
 
+
     const formatedClasses = classes.map( classItem => {
       const classSchedule = schedules.filter( schedule => schedule.class_id === classItem.id);
 
       return {
         ...classItem,
+        avatar_url: `http://localhost:3333/files/${classItem.avatar}`,
         schedule: classSchedule, 
       }
     });

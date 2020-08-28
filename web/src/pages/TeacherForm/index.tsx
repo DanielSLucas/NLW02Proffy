@@ -64,7 +64,7 @@ function TeacherForm() {
     }).then(() => {
       alert('Cadastro realizado com sucesso!');
 
-      history.push('/');
+      history.push('/class-created');
     }).catch(() => {
       alert('Erro no cadastro');
     });

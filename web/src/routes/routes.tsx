@@ -15,6 +15,7 @@ import Landing from '../pages/Landing';
 import TeacherList from '../pages/TeacherList';
 import TeacherForm from '../pages/TeacherForm';
 import Profile from '../pages/Profile';
+import ClassCreated from '../pages/ClassCreated';
 
 
 function Routes() {
@@ -28,12 +29,14 @@ function Routes() {
       <Route path="/forgot-password-sent" exact component={ForgotPasswordSent} />
 
       <Route path="/reset_password" exact component={ResetPassword} />
-
       
       <Route path="/landing" exact component={Landing} isPrivate/>
       <Route path="/profile" exact component={Profile} isPrivate/>
       <Route path="/study" component={TeacherList} isPrivate/>
+
       <Route path="/give-classes" component={TeacherForm} isPrivate/>
+      <Route path="/class-created" component={ClassCreated} isPrivate/>
+
     </BrowserRouter>
   );
 }

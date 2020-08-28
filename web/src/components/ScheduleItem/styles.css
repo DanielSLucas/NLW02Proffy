@@ -1,13 +1,13 @@
 .schedule-item {
-  height: 13.6rem;
-  width: 12.2rem;
+  height: 6rem;
+  width: 100%;
   border: 0.1rem solid var(--color-line-in-white);
   border-radius: 0.8rem;
-
+  margin-bottom: 1rem;
   background: var(--color-box-footer);
   
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-evenly;
 }
 
@@ -33,4 +33,15 @@
 
 .disabled {
   opacity: 0.4;
+}
+
+@media(min-width: 700px) {
+  .schedule-item {
+    height: 13.6rem;
+    width: 12.2rem;
+
+    margin-bottom: 0;
+
+    flex-direction: column;
+  }
 }

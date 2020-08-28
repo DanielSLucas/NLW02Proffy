@@ -1,0 +1,40 @@
+#page-success {
+  width: 100vw;
+  height: 100vh;
+
+  background-image: url('../../assets/images/success-background.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+  background-color: var(--color-primary);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#page-success .success-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#page-success .success-container strong {
+  color: var(--color-title-in-primary);
+  font: 700 5.4rem Archivo;
+
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+}
+
+#page-success .success-container p {
+  color: var(--color-text-in-primary);
+  font: 400 1.6rem Poppins;
+
+  margin-bottom: 6rem;
+}
+
+#page-success .success-container .success-button {
+  width: 20rem;
+  align-self: center;
+}

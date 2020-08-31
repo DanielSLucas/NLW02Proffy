@@ -38,8 +38,6 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, schedule }) => {
     });
   }, [teacher.id]);
 
-  console.log({teacher, schedule})
-
   const daysSchedule = useMemo(() => {
     const weekDays = [1,2,3,4,5];
 

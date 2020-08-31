@@ -108,7 +108,7 @@
 
 .landing-bottomside .bottom-container {
   width: 120rem;
-  margin-top: -8rem;
+  /* margin-top: -8rem; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -268,6 +268,10 @@
     width: 20rem;
   }
 
+  .bottom-container {
+    margin-top: -8rem;
+  }
+
   .landing-bottomside .bottom-container .bottom-text {
     width: 70%;
   }
@@ -301,4 +305,14 @@
     width: 18rem;
   }
 
+}
+
+@media (max-width: 375px) {
+  .hero-image {
+    width: 31rem;
+  }
+  
+  .buttons-container a {
+    width: 15rem;
+  }
 }

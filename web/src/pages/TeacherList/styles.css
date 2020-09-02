@@ -41,8 +41,7 @@
 #page-teacher-list main p {
   font: 400 1.6rem Poppins;
   color: var(--color-text-complement);
-  text-align: center;
-  margin-top: 5rem;
+  text-align: justify;
 }
 
 

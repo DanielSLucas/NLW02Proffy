@@ -1,6 +1,8 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import { View, Image, Text, StatusBar, ImageBackground, TouchableOpacity } from 'react-native';
-import Swiper, { SwiperStates } from 'react-native-swiper';
+import AsyncStorage from '@react-native-community/async-storage';
+import Swiper from 'react-native-swiper';
+import { useNavigation } from '@react-navigation/native';
 
 import nextIcon from '../../assets/images/icons/next.png';
 import studyIcon from '../../assets/images/icons/study.png';
@@ -12,12 +14,21 @@ import styles from './styles';
 
 const Onboarding: React.FC = () => {
   const swiper = useRef<Swiper>(null);
+  const navigation = useNavigation();
 
   const handleNext = useCallback(() => {
     if (swiper.current) {
       swiper.current.scrollBy(1);
     }
-  }, [swiper, swiper.current])
+  }, [swiper, swiper.current]);
+
+  const handleNextPage = useCallback(() => {
+    navigation.navigate('SignIn')
+  }, []);
+
+  useEffect(() => {
+    AsyncStorage.setItem('isFirstTime', "false");
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -89,7 +100,7 @@ const Onboarding: React.FC = () => {
 
           <TouchableOpacity 
             style={styles.nextButton}
-            onPress={() => {}}
+            onPress={handleNextPage}
           >
             <Image source={nextIcon} />
           </TouchableOpacity>

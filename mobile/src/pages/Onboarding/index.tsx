@@ -1,19 +1,33 @@
-import React from 'react';
-import { View, Image, Text, StatusBar, ImageBackground } from 'react-native';
-import Swiper from 'react-native-swiper';
+import React, { useCallback, useRef } from 'react';
+import { View, Image, Text, StatusBar, ImageBackground, TouchableOpacity } from 'react-native';
+import Swiper, { SwiperStates } from 'react-native-swiper';
 
+import nextIcon from '../../assets/images/icons/next.png';
 import studyIcon from '../../assets/images/icons/study.png';
 import giveClassesIcon from '../../assets/images/icons/give-classes.png';
 import onboardingBackground from '../../assets/images/onboarding-background.png';
+import onboarding2Background from '../../assets/images/onboarding-2background.png';
 
 import styles from './styles';
 
 const Onboarding: React.FC = () => {
+  const swiper = useRef<Swiper>(null);
+
+  const handleNext = useCallback(() => {
+    if (swiper.current) {
+      swiper.current.scrollBy(1);
+    }
+  }, [swiper, swiper.current])
+
   return (
     <View style={styles.container}>
       <StatusBar />
       <Swiper 
+        ref={swiper}
         dotStyle={styles.dot}
+        activeDotStyle={styles.activeDot}
+        paginationStyle={styles.pagination}
+        loop={false}
         style={styles.wrapper}
       >
         <View style={styles.slide}>
@@ -40,17 +54,24 @@ const Onboarding: React.FC = () => {
             </Text>
           </View>
 
+          <TouchableOpacity 
+            style={styles.nextButton}
+            onPress={handleNext}
+          >
+            <Image source={nextIcon} />
+          </TouchableOpacity>
+
         </View>
 
         <View style={styles.slide}>
 
-          <View style={styles.header}>
+          <View style={[styles.header, {backgroundColor: "#04D361"}]}>
             <ImageBackground
               resizeMode="center"
-              source={onboardingBackground}
+              source={onboarding2Background}
               style={styles.headerBackground}
             >
-              <Image style={styles.pageIcon} source={studyIcon} />
+              <Image style={styles.pageIcon} source={giveClassesIcon} />
             </ImageBackground>
           </View>
 
@@ -65,6 +86,13 @@ const Onboarding: React.FC = () => {
               mais conhece
             </Text>
           </View>
+
+          <TouchableOpacity 
+            style={styles.nextButton}
+            onPress={() => {}}
+          >
+            <Image source={nextIcon} />
+          </TouchableOpacity>
 
         </View>
 

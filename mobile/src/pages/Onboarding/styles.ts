@@ -50,17 +50,38 @@ const styles = StyleSheet.create({
     color: "#6A6180",
   },
 
+  nextButton: {
+    position: "absolute",
+    right: 60,
+    bottom: 50,
+  },
+
   dot: {
     backgroundColor:'rgba(0,0,0,.2)', 
-    width: 4, 
-    height: 4,
-    borderRadius: 2, 
+    width: 6, 
+    height: 6,
+    borderRadius: 3, 
     marginLeft: 3, 
     marginRight: 3, 
     marginTop: 3, 
     marginBottom: 3,
   },
 
+  activeDot: {
+    backgroundColor: '#8257E5', 
+    width: 6, 
+    height: 6, 
+    borderRadius: 3,
+  },
+
+  pagination: {
+    position: "absolute",
+    bottom: 60,
+    right: "auto",
+    left: 50,
+    // height: 100,
+    // width: "30%",
+  },
 });
 
 export default styles;

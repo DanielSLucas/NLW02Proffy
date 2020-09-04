@@ -1,21 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, ImageBackground, Image, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { CheckBox } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
+
+import CustomizedInput from '../../components/CustomizedInput';
+import Button from '../../components/Button';
 
 import signInBackground from '../../assets/images/signIn-background.png';
 import introImg from '../../assets/images/Intro.png';
 
 import styles from './styles';
-import { RectButton } from 'react-native-gesture-handler';
-import CustomizedInput from '../../components/CustomizedInput';
-import Button from '../../components/Button';
 
 const SignIn: React.FC = () => {
+  const navigation = useNavigation();
+  
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+
+  useEffect(() => {
+    if (!!email && !!password) {
+      setIsButtonEnabled(true);
+    } else {
+      setIsButtonEnabled(false);
+    }
+  }, [email, password]);
+
+  const navigateToSignUp = useCallback(() => {
+    navigation.navigate('SignUp')
+  }, [navigation])
   
   return (
     <>
@@ -43,7 +58,10 @@ const SignIn: React.FC = () => {
           <View style={styles.form}>
             <View style={styles.formHeader}>
               <Text style={styles.title}>Fazer login</Text>
-              <TouchableOpacity style={styles.signUpButton}>
+              <TouchableOpacity 
+                onPress={navigateToSignUp}
+                style={styles.signUpButton}
+              >
                 <Text style={styles.signUpButtonText}>
                   Criar uma conta
                 </Text>

@@ -1,5 +1,5 @@
-import React, { useCallback, useRef, useEffect } from 'react';
-import { View, Image, Text, StatusBar, ImageBackground, TouchableOpacity } from 'react-native';
+import React, { useCallback, useRef } from 'react';
+import { View, Image, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Swiper from 'react-native-swiper';
 import { useNavigation } from '@react-navigation/native';
@@ -23,16 +23,12 @@ const Onboarding: React.FC = () => {
   }, [swiper, swiper.current]);
 
   const handleNextPage = useCallback(() => {
-    navigation.navigate('SignIn')
-  }, []);
-
-  useEffect(() => {
+    navigation.navigate('SignIn');
     AsyncStorage.setItem('isFirstTime', "false");
   }, []);
 
   return (
     <View style={styles.container}>
-      <StatusBar />
       <Swiper 
         ref={swiper}
         dotStyle={styles.dot}

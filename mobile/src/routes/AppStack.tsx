@@ -10,6 +10,7 @@ import GiveClasses from '../pages/GiveClasses';
 import StudyTabs from './StudyTabs';
 import Onboarding from '../pages/Onboarding';
 import SignIn from '../pages/SignIn';
+import SignUp from '../pages/SignUp';
 
 
 function AppStack() {
@@ -30,6 +31,7 @@ function AppStack() {
       <Navigator screenOptions={{ headerShown: false }}>
         {isFirstTime && <Screen name="Onboarding" component={Onboarding} />}
         <Screen name="SignIn" component={SignIn} />
+        <Screen name="SignUp" component={SignUp} />
         <Screen name="Landing" component={Landing} />
         <Screen name="GiveClasses" component={GiveClasses} />
         <Screen name="Study" component={StudyTabs} />

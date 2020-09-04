@@ -8,8 +8,11 @@ import introImg from '../../assets/images/Intro.png';
 import styles from './styles';
 import { RectButton } from 'react-native-gesture-handler';
 import CustomizedInput from '../../components/CustomizedInput';
+import Button from '../../components/Button';
 
 const SignIn: React.FC = () => {
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
@@ -57,6 +60,7 @@ const SignIn: React.FC = () => {
               <CustomizedInput
                 last
                 placeholder="Senha"
+                isPassword
                 value={password}
                 onChangeText={text => setPassword(text)}
               />
@@ -71,26 +75,18 @@ const SignIn: React.FC = () => {
                   checkedColor="#04D361"
                   checkedIcon="check"
                 />
-                <Text>Lembrar-me</Text>
+                <Text style={styles.formFooterText}>Lembrar-me</Text>
               </View>
               <TouchableOpacity style={styles.forgotPasswordButton}>
-                <Text style={styles.forgotPasswordButtonText}>
+                <Text style={styles.formFooterText}>
                   Esqueci minha senha
                 </Text>
               </TouchableOpacity>
             </View>
 
-            <RectButton style={{
-              width: 311,
-              height: 56,
-              backgroundColor: "#DCDCE5",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 8,
-            }}
-            >
-              <Text>Entrar</Text>
-            </RectButton>
+            <Button enabled={isButtonEnabled}>
+              Entrar
+            </Button>
 
           </View>
         </ScrollView>

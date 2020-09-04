@@ -60,6 +60,7 @@ const styles =  StyleSheet.create({
     width: 311,
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 20,
   },
 
@@ -69,19 +70,17 @@ const styles =  StyleSheet.create({
   },
 
   checkbox: {
-    // width: 24,
-    // height: 24,
-    // borderColor: "#E6E6F0",
-    // backgroundColor: "#FFFFFF",
     margin: 0,
     padding: 0,
   },
 
-  forgotPasswordButton: {
-    
-  },
+  forgotPasswordButton: {},
   
-  forgotPasswordButtonText: {},
+  formFooterText: {
+    fontFamily: "Poppins_400Regular",
+    fontSize: 12,
+    color: "#9C98A6",
+  },
 });
 
 export default styles;

@@ -24,10 +24,10 @@ const styles = StyleSheet.create({
 
   inputFocus: {
     width: 2,
-    height: 50,
+    height: 40,
     backgroundColor: "#8257E5",
     position: "absolute",
-    top: 6,
+    top: 12,
     bottom: 5,
   },
 
@@ -48,9 +48,15 @@ const styles = StyleSheet.create({
 
   focusedInputLabel: {
     position: "absolute",
-    top: 0,
+    top: 10,
     left: 0,
     fontSize: 10,
+  },
+
+  eyeButton: {
+    position: "absolute",
+    top: 20,
+    right: 20,
   }
 
 });

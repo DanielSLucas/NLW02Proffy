@@ -1,5 +1,8 @@
 import React, { useState, useCallback, useRef } from 'react';
-import { View, TextInput, TextInputProps, Text } from 'react-native';
+import { View, TextInput, TextInputProps, Text, TouchableOpacity, Image } from 'react-native';
+
+import eyeIcon from '../../assets/images/icons/eye.png';
+import closedEyeIcon from '../../assets/images/icons/closedEye.png';
 
 import styles from './sytles';
 
@@ -8,9 +11,26 @@ interface InputProps extends TextInputProps {
   password?: boolean;
   first?: boolean;
   last?: boolean;
+  isPassword?: boolean;
 }
 
-const CustomizedInput: React.FC<InputProps> = ({ placeholder, password, first, last, value, ...rest }) => {  
+const CustomizedInput: React.FC<InputProps> = 
+  ({ placeholder, password, first, last, value, isPassword,...rest }) => {  
+  
+  const [showPassword, setShowPassword] = useState(false);
+  const [isPasswordInput, setIsPasswordInput] = useState(isPassword)
+
+  const toggleShowPassowd = useCallback((event) => {
+    setShowPassword(!showPassword);
+
+    if (!showPassword) {
+      setIsPasswordInput(false)
+    } else {
+      setIsPasswordInput(true)
+    }
+
+  }, [showPassword]);
+  
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
   
@@ -33,6 +53,7 @@ const CustomizedInput: React.FC<InputProps> = ({ placeholder, password, first, l
       {isFocused && <View style={styles.inputFocus}></View>}
       <TextInput 
         style={styles.input}
+        secureTextEntry={isPasswordInput}
         placeholder={placeholder}
         placeholderTextColor={"transparent"}
         onFocus={handleInputFocus}
@@ -48,6 +69,20 @@ const CustomizedInput: React.FC<InputProps> = ({ placeholder, password, first, l
       >
         {placeholder}
       </Text>
+
+      { isPassword && 
+        <TouchableOpacity 
+          style={styles.eyeButton}
+          onPress={toggleShowPassowd}
+        >
+          { 
+            showPassword
+            ? <Image  source={eyeIcon} />
+            : <Image  source={closedEyeIcon} />
+          }  
+        </TouchableOpacity>
+      }
+
     </View>
   );
 }

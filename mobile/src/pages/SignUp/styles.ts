@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   
   wrapper: {
-    marginTop: -50,
+    height: "60%",
   },
 
   slide: {
@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
   pageIntro: {
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    marginTop: 50,
-    marginBottom: 150,
+    marginTop: 30,
+    marginBottom: 0,
     width: 311,
   },
 
@@ -84,9 +84,9 @@ const styles = StyleSheet.create({
 
   pagination: {
     position: "absolute",
-    top: -560,
+    top: -135,
     left: "auto",
-    right: 45,
+    right: 60,
     zIndex: 999,
   },
 });

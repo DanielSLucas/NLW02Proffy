@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, useState } from 'react';
-import { View, KeyboardAvoidingView, Image, Text, StatusBar, Platform } from 'react-native';
+import { View, KeyboardAvoidingView, Image, Text, StatusBar, Platform, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 
@@ -25,126 +25,108 @@ const SignUp: React.FC = () => {
     }
   }, [swiper, swiper.current]);
 
-  const handleNextPage = useCallback(() => {
-    navigation.navigate('SignIn')
-  }, []);
+  const handleGoBack = useCallback(() => {
+    navigation.goBack()
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-
-      {/* <ScrollView
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{ flex: 1 }}
-        > */}
-      <Swiper
-        ref={swiper}
-        dotStyle={styles.dot}
-        activeDotStyle={styles.activeDot}
-        paginationStyle={styles.pagination}
-        loop={false}
-        style={styles.wrapper}
+      <TouchableOpacity 
+        onPress={handleGoBack}
+        style={[styles.header, {marginTop: 50}]}
       >
-        {/* SLIDE 1 */}
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
-          style={styles.slide}
+        <Image style={{}} source={backIcon} />
+      </TouchableOpacity>
+
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <View style={styles.pageIntro}>
+          <Text style={styles.introTitle}>
+            Crie sua {'\n'}
+            conta gratuíta
+          </Text>
+          <Text style={styles.introDescription}>
+            Basta preencher esses dados {'\n'}
+            e você estará conosco.
+          </Text>
+        </View>
+
+
+        <Swiper
+          ref={swiper}
+          dotStyle={styles.dot}
+          activeDotStyle={styles.activeDot}
+          paginationStyle={styles.pagination}
+          loop={false}
+          style={styles.wrapper}
         >
+          <View style={styles.slide}>
+            <View style={styles.form}>
+              <Text style={styles.formTitle}>
+                01. Quem é você?
+              </Text>
 
-          <View style={styles.header}>
-            <Image style={styles.backIcon} source={backIcon} />
-          </View>
-
-          <View style={styles.pageIntro}>
-            <Text style={styles.introTitle}>
-              Crie sua {'\n'}
-              conta gratuíta
-            </Text>
-            <Text style={styles.introDescription}>
-              Basta preencher esses dados {'\n'}
-              e você estará conosco.
-            </Text>
-          </View>
-
-          <View style={styles.form}>
-            <Text style={styles.formTitle}>
-              01. Quem é você?
-            </Text>
-
-            <View style={styles.inputsContainer}>
-              <CustomizedInput
-                first
-                last
-                placeholder="Nome"
-                value={name}
-                onChangeText={text => setName(text)}
-              />
+              <View style={styles.inputsContainer}>
+                <CustomizedInput
+                  first
+                  last
+                  placeholder="Nome"
+                  value={name}
+                  onChangeText={text => setName(text)}
+                />
+              </View>
             </View>
+
+            <Button
+              enabled
+              onPress={handleNext}
+              style={{ backgroundColor: '#8257E5', }}
+            >
+              Proxímo
+            </Button>
           </View>
 
-          <Button
-            enabled
-            onPress={handleNext}
-            style={{ backgroundColor: '#8257E5', }}
-          >
-            Proxímo
-          </Button>
-        </KeyboardAvoidingView>
+          <View style={[styles.slide, {marginTop: 60}]}>
+            <View style={styles.form}>
+              <Text style={styles.formTitle}>
+                02. E-mail e Senha
+              </Text>
 
-        {/* SLIDE 2 */}
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
-          style={styles.slide}
-        >
+              <View style={styles.inputsContainer}>
+                <CustomizedInput
+                  first
+                  placeholder="E-mail"
+                  value={email}
+                  onChangeText={text => setEmail(text)}
+                />
 
-          <View style={styles.header}>
-            <Image style={styles.backIcon} source={backIcon} />
-          </View>
-
-          <View style={[styles.pageIntro, {marginBottom: 90}]}>
-            <Text style={styles.introTitle}>
-              Crie sua {'\n'}
-              conta gratuíta
-            </Text>
-            <Text style={styles.introDescription}>
-              Basta preencher esses dados {'\n'}
-              e você estará conosco.
-            </Text>
-          </View>
-
-          <View style={styles.form}>
-            <Text style={styles.formTitle}>
-              02. E-mail e Senha
-                </Text>
-
-            <View style={styles.inputsContainer}>
-              <CustomizedInput
-                first
-                placeholder="E-mail"
-                value={email}
-                onChangeText={text => setEmail(text)}
-              />
-
-              <CustomizedInput
-                last
-                isPassword
-                placeholder="Senha"
-                value={password}
-                onChangeText={text => setPassword(text)}
-              />
+                <CustomizedInput
+                  last
+                  isPassword
+                  placeholder="Senha"
+                  value={password}
+                  onChangeText={text => setPassword(text)}
+                />
+              </View>
             </View>
+
+            <Button
+              enabled
+              onPress={handleNext}
+            >
+              Concluir cadastro
+            </Button>
           </View>
+        </Swiper>
 
-          <Button
-            enabled
-            onPress={handleNext}
-          >
-            Concluir cadastro
-          </Button>
-        </KeyboardAvoidingView>
-
-      </Swiper>
-      {/* </ScrollView> */}
+      </KeyboardAvoidingView>
 
     </View>
   );

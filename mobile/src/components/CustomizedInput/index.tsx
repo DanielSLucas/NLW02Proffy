@@ -77,8 +77,8 @@ const CustomizedInput: React.FC<InputProps> =
         >
           { 
             showPassword
-            ? <Image  source={eyeIcon} />
-            : <Image  source={closedEyeIcon} />
+            ? <Image  source={closedEyeIcon} />
+            : <Image  source={eyeIcon} />
           }  
         </TouchableOpacity>
       }

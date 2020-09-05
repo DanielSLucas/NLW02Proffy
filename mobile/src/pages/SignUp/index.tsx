@@ -16,6 +16,8 @@ const SignUp: React.FC = () => {
   const navigation = useNavigation();
 
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleNext = useCallback(() => {
     if (swiper.current) {
@@ -43,8 +45,9 @@ const SignUp: React.FC = () => {
         loop={false}
         style={styles.wrapper}
       >
+        {/* SLIDE 1 */}
         <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
           style={styles.slide}
         >
 
@@ -88,6 +91,7 @@ const SignUp: React.FC = () => {
           </Button>
         </KeyboardAvoidingView>
 
+        {/* SLIDE 2 */}
         <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
           style={styles.slide}
@@ -97,7 +101,7 @@ const SignUp: React.FC = () => {
             <Image style={styles.backIcon} source={backIcon} />
           </View>
 
-          <View style={styles.pageIntro}>
+          <View style={[styles.pageIntro, {marginBottom: 90}]}>
             <Text style={styles.introTitle}>
               Crie sua {'\n'}
               conta gratuíta
@@ -110,16 +114,23 @@ const SignUp: React.FC = () => {
 
           <View style={styles.form}>
             <Text style={styles.formTitle}>
-              01. Quem é você?
+              02. E-mail e Senha
                 </Text>
 
             <View style={styles.inputsContainer}>
               <CustomizedInput
                 first
+                placeholder="E-mail"
+                value={email}
+                onChangeText={text => setEmail(text)}
+              />
+
+              <CustomizedInput
                 last
-                placeholder="Nome"
-                value={name}
-                onChangeText={text => setName(text)}
+                isPassword
+                placeholder="Senha"
+                value={password}
+                onChangeText={text => setPassword(text)}
               />
             </View>
           </View>
@@ -127,9 +138,8 @@ const SignUp: React.FC = () => {
           <Button
             enabled
             onPress={handleNext}
-            style={{ backgroundColor: '#8257E5', }}
           >
-            Proxímo
+            Concluir cadastro
           </Button>
         </KeyboardAvoidingView>
 

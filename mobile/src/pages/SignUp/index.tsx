@@ -30,6 +30,11 @@ const SignUp: React.FC = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
+
+      {/* <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{ flex: 1 }}
+        > */}
       <Swiper
         ref={swiper}
         dotStyle={styles.dot}
@@ -38,110 +43,99 @@ const SignUp: React.FC = () => {
         loop={false}
         style={styles.wrapper}
       >
-        <View style={styles.slide}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          style={styles.slide}
+        >
+
           <View style={styles.header}>
-            <Image source={backIcon} />
+            <Image style={styles.backIcon} source={backIcon} />
           </View>
 
-          <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}         
-            style={{ flex: 1 }}
-          >
-
-            <ScrollView
-              keyboardShouldPersistTaps="handled"
-              contentContainerStyle={{ flex: 1 }}
-            >
-              <View style={styles.pageIntro}>
-                <Text style={styles.introTitle}>
-                  Crie sua {'\n'}
-                conta gratuíta
-                </Text>
-                <Text style={styles.introDescription}>
-                  Basta preencher esses dados {'\n'}
-                  e você estará conosco.
-                </Text>
-              </View>
-
-              <View style={styles.form}>
-                <Text style={styles.formTitle}>
-                  01. Quem é você?
-                </Text>
-
-                <View style={styles.inputsContainer}>
-                  <CustomizedInput
-                    first
-                    last
-                    placeholder="Nome"
-                    value={name}
-                    onChangeText={text => setName(text)}
-                  />
-                </View>
-              </View>
-
-              <Button
-                enabled
-                onPress={handleNext}
-                style={{ backgroundColor: '#8257E5', }}
-              >
-                Proxímo
-              </Button>
-            </ScrollView>
-
-
-
-          </KeyboardAvoidingView>
-        </View>
-
-        <View style={styles.slide}>
-          <View style={styles.header}>
-            <Image source={backIcon} />
-          </View>
-
-          <KeyboardAvoidingView
-            behavior="padding"
-            style={{ flex: 1, width: 311, }}
-            enabled
-          >
-
-            <View style={styles.pageIntro}>
-              <Text style={styles.introTitle}>
-                Crie sua {'\n'}
+          <View style={styles.pageIntro}>
+            <Text style={styles.introTitle}>
+              Crie sua {'\n'}
               conta gratuíta
-              </Text>
-              <Text style={styles.introDescription}>
-                Basta preencher esses dados {'\n'}
+            </Text>
+            <Text style={styles.introDescription}>
+              Basta preencher esses dados {'\n'}
               e você estará conosco.
-              </Text>
+            </Text>
+          </View>
+
+          <View style={styles.form}>
+            <Text style={styles.formTitle}>
+              01. Quem é você?
+            </Text>
+
+            <View style={styles.inputsContainer}>
+              <CustomizedInput
+                first
+                last
+                placeholder="Nome"
+                value={name}
+                onChangeText={text => setName(text)}
+              />
             </View>
+          </View>
 
-            <View style={styles.form}>
-              <Text style={styles.formTitle}>
-                01. Quem é você?
-              </Text>
+          <Button
+            enabled
+            onPress={handleNext}
+            style={{ backgroundColor: '#8257E5', }}
+          >
+            Proxímo
+          </Button>
+        </KeyboardAvoidingView>
 
-              <View style={styles.inputsContainer}>
-                <CustomizedInput
-                  first
-                  last
-                  placeholder="Nome"
-                  value={name}
-                  onChangeText={text => setName(text)}
-                />
-              </View>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          style={styles.slide}
+        >
+
+          <View style={styles.header}>
+            <Image style={styles.backIcon} source={backIcon} />
+          </View>
+
+          <View style={styles.pageIntro}>
+            <Text style={styles.introTitle}>
+              Crie sua {'\n'}
+              conta gratuíta
+            </Text>
+            <Text style={styles.introDescription}>
+              Basta preencher esses dados {'\n'}
+              e você estará conosco.
+            </Text>
+          </View>
+
+          <View style={styles.form}>
+            <Text style={styles.formTitle}>
+              01. Quem é você?
+                </Text>
+
+            <View style={styles.inputsContainer}>
+              <CustomizedInput
+                first
+                last
+                placeholder="Nome"
+                value={name}
+                onChangeText={text => setName(text)}
+              />
             </View>
+          </View>
 
-            <Button
-              enabled
-              onPress={handleNext}
-              style={{ backgroundColor: '#8257E5', }}
-            >
-              Proxímo
-            </Button>
+          <Button
+            enabled
+            onPress={handleNext}
+            style={{ backgroundColor: '#8257E5', }}
+          >
+            Proxímo
+          </Button>
+        </KeyboardAvoidingView>
 
-          </KeyboardAvoidingView>
-        </View>
       </Swiper>
+      {/* </ScrollView> */}
+
     </View>
   );
 }

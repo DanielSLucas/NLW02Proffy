@@ -5,11 +5,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F0F0F7",
     position: "relative",
+    zIndex: 1,
   },
   
   wrapper: {
-    flex: 1,
-    flexDirection: "column",
+    marginTop: -50,
   },
 
   slide: {
@@ -20,8 +20,13 @@ const styles = StyleSheet.create({
 
   header: {
     width: 350,
-    marginTop: 50,
+    marginTop: 20,
     alignSelf:"center",
+  },
+
+  backIcon: {
+    position: "absolute",
+    top: 0,
   },
 
   pageIntro: {
@@ -29,6 +34,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginTop: 50,
     marginBottom: 150,
+    width: 311,
   },
 
   introTitle: {
@@ -46,6 +52,7 @@ const styles = StyleSheet.create({
 
   form: {
     marginBottom: 20,
+    width: 311,
   },
 
   formTitle: {
@@ -77,9 +84,10 @@ const styles = StyleSheet.create({
 
   pagination: {
     position: "absolute",
-    top: -564,
+    top: -560,
     left: "auto",
     right: 45,
+    zIndex: 999,
   },
 });
 

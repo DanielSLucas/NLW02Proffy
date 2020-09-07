@@ -36,6 +36,10 @@ const SignIn: React.FC = () => {
     navigation.navigate('ForgotPassword')
   }, [navigation])
 
+  const handleSignIn = useCallback(() => {
+    navigation.navigate('Landing')
+  }, [navigation]);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -109,7 +113,10 @@ const SignIn: React.FC = () => {
               </TouchableOpacity>
             </View>
 
-            <Button enabled={isButtonEnabled}>
+            <Button 
+              enabled={isButtonEnabled}
+              onPress={handleSignIn}
+            >
               Entrar
             </Button>
 

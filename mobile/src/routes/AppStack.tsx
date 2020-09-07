@@ -11,6 +11,7 @@ import StudyTabs from './StudyTabs';
 import Onboarding from '../pages/Onboarding';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
+import SignUpSuccess from '../pages/SignUpSuccess';
 
 
 function AppStack() {
@@ -32,6 +33,7 @@ function AppStack() {
         {isFirstTime && <Screen name="Onboarding" component={Onboarding} />}
         <Screen name="SignIn" component={SignIn} />
         <Screen name="SignUp" component={SignUp} />
+        <Screen name="SignUpSuccess" component={SignUpSuccess} />
         <Screen name="Landing" component={Landing} />
         <Screen name="GiveClasses" component={GiveClasses} />
         <Screen name="Study" component={StudyTabs} />

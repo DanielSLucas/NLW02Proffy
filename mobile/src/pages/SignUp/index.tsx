@@ -9,7 +9,6 @@ import backIcon from '../../assets/images/icons/Voltar.png';
 
 import styles from './styles';
 import Button from '../../components/Button';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const SignUp: React.FC = () => {
   const swiper = useRef<Swiper>(null);
@@ -27,6 +26,10 @@ const SignUp: React.FC = () => {
 
   const handleGoBack = useCallback(() => {
     navigation.goBack()
+  }, [navigation]);
+
+  const handleSignUp = useCallback(() => {
+    navigation.navigate('SignUpSuccess')
   }, [navigation]);
 
   return (
@@ -119,7 +122,7 @@ const SignUp: React.FC = () => {
 
             <Button
               enabled
-              onPress={handleNext}
+              onPress={handleSignUp}
             >
               Concluir cadastro
             </Button>

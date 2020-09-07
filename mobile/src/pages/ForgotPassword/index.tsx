@@ -8,32 +8,31 @@ import Button from '../../components/Button';
 
 import signInBackground from '../../assets/images/signIn-background.png';
 import introImg from '../../assets/images/Intro.png';
+import backIcon from '../../assets/images/icons/Voltar.png';
 
 import styles from './styles';
 
 const SignIn: React.FC = () => {
   const navigation = useNavigation();
   
-  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false); 
   
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
 
   useEffect(() => {
-    if (!!email && !!password) {
+    if (!!email) {
       setIsButtonEnabled(true);
     } else {
       setIsButtonEnabled(false);
     }
-  }, [email, password]);
+  }, [email]);
 
-  const handleSignUp = useCallback(() => {
-    navigation.navigate('SignUp')
-  }, [navigation])
+  const handleGoBack = useCallback(() => {
+    navigation.goBack()
+  }, [navigation]);
   
-  const handleForgotPassword = useCallback(() => {
-    navigation.navigate('ForgotPassword')
+  const handleSend = useCallback(() => {
+    navigation.navigate('RedefinitionSent')
   }, [navigation])
 
   return (
@@ -53,64 +52,42 @@ const SignIn: React.FC = () => {
               resizeMode="center"
               style={styles.headerBackground}
             >
-              <View style={styles.intro}>
-                <Image style={styles.logo} source={introImg} />
+              <View>
+                <Image source={introImg} />
               </View>
             </ImageBackground>
           </View>
 
           <View style={styles.form}>
             <View style={styles.formHeader}>
-              <Text style={styles.title}>Fazer login</Text>
-              <TouchableOpacity 
-                onPress={handleSignUp}
-                style={styles.signUpButton}
+              <TouchableOpacity
+                onPress={handleGoBack}
               >
-                <Text style={styles.signUpButtonText}>
-                  Criar uma conta
-                </Text>
+                <Image style={styles.backIcon} source={backIcon} />
               </TouchableOpacity>
+
+              <Text style={styles.title}>Esqueceu sua senha?</Text>
+              <Text style={styles.description}>
+                Não esquenta, {'\n'}
+                vamos dar um jeito nisso.
+              </Text>
             </View>
 
             <View style={styles.inputsContainer}>
               <CustomizedInput
                 first
+                last 
                 placeholder="E-mail"
                 value={email}
                 onChangeText={text => setEmail(text)}
               />
-              <CustomizedInput
-                last
-                placeholder="Senha"
-                isPassword
-                value={password}
-                onChangeText={text => setPassword(text)}
-              />
             </View>
 
-            <View style={styles.formFooter}>
-              <View style={styles.rememberMe}>
-                <CheckBox  
-                  checked={rememberMe}
-                  onPress={() => setRememberMe(!rememberMe)}
-                  containerStyle={styles.checkbox}
-                  checkedColor="#04D361"
-                  checkedIcon="check"
-                />
-                <Text style={styles.formFooterText}>Lembrar-me</Text>
-              </View>
-              <TouchableOpacity 
-                style={styles.forgotPasswordButton}
-                onPress={handleForgotPassword}
-              >
-                <Text style={styles.formFooterText}>
-                  Esqueci minha senha
-                </Text>
-              </TouchableOpacity>
-            </View>
-
-            <Button enabled={isButtonEnabled}>
-              Entrar
+            <Button 
+              enabled={isButtonEnabled}
+              onPress={handleSend}
+            >
+              Enviar
             </Button>
 
           </View>

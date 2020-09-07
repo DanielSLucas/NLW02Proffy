@@ -12,6 +12,8 @@ import Onboarding from '../pages/Onboarding';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import SignUpSuccess from '../pages/SignUpSuccess';
+import ForgotPassword from '../pages/ForgotPassword';
+import RedefinitionSent from '../pages/RedefinitionSent';
 
 
 function AppStack() {
@@ -34,6 +36,8 @@ function AppStack() {
         <Screen name="SignIn" component={SignIn} />
         <Screen name="SignUp" component={SignUp} />
         <Screen name="SignUpSuccess" component={SignUpSuccess} />
+        <Screen name="ForgotPassword" component={ForgotPassword} />
+        <Screen name="RedefinitionSent" component={RedefinitionSent} />
         <Screen name="Landing" component={Landing} />
         <Screen name="GiveClasses" component={GiveClasses} />
         <Screen name="Study" component={StudyTabs} />

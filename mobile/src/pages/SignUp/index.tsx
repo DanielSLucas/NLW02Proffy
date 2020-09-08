@@ -109,6 +109,7 @@ const SignUp: React.FC = () => {
                   first
                   last
                   placeholder="Nome"
+                  autoCapitalize="words"
                   value={name}
                   onChangeText={text => setName(text)}
                 />
@@ -135,6 +136,7 @@ const SignUp: React.FC = () => {
                   first
                   placeholder="E-mail"
                   value={email}
+                  autoCapitalize="none"
                   onChangeText={text => setEmail(text)}
                   onSubmitEditing={() => {
                     passwordInputRef.current?.focus()

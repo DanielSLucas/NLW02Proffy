@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { View, Image, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 
-import api from '../../services/api';
+import api, { baseURL } from '../../services/api';
 import { useAuth } from '../../hooks/auth';
 
 import styles from './styles';
@@ -16,7 +16,7 @@ import signOutImg from '../../assets/images/icons/Sair.png';
 
 const Landing: React.FC = () => {
   const navigation = useNavigation();
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
 
   const [totalConnections, setTotalConnections] = useState(0);
 
@@ -36,19 +36,21 @@ const Landing: React.FC = () => {
     signOut();
   }, [signOut]);
 
-  return (
+  return ( 
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.head}>
-          <View style={styles.user}>
-            <Image 
-              source={{uri: "https://scontent-gru2-2.xx.fbcdn.net/v/t1.0-9/22490118_1492632757482874_519952030961978183_n.jpg?_nc_cat=100&_nc_sid=09cbfe&_nc_eui2=AeFR2_41a-VUUtBqh3YXq06S_23SIe29XZz_bdIh7b1dnJcDm7PCgxNXZ8dmdQpYoyiWSpegWXpgiJB3DeevtutE&_nc_ohc=cD4j0UO1kJUAX9fd-Gp&_nc_ht=scontent-gru2-2.xx&oh=aab783d7d4f0d3d5740f307dc4dbc4f8&oe=5F7CBBD5"}} 
-              style={styles.avatar}
-            />
-            <Text style={styles.userName}>Daniel Lucas</Text>
-          </View>
+          <TouchableWithoutFeedback >
+            <View style={styles.user}>
+              <Image
+                source={{ uri: baseURL + '/files' + `/${user.avatar}` }}
+                style={styles.avatar}
+              />
+              <Text style={styles.userName}>{user.name}</Text>
+            </View>
+          </TouchableWithoutFeedback>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.signOutButton}
             onPress={handleSignOut}
           >

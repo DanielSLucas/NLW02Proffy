@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, ImageBackground, Image, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
-import { CheckBox } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import * as Yup from 'yup';
 
 import CustomizedInput from '../../components/CustomizedInput';
 import Button from '../../components/Button';
@@ -11,6 +11,7 @@ import introImg from '../../assets/images/Intro.png';
 import backIcon from '../../assets/images/icons/Voltar.png';
 
 import styles from './styles';
+import api from '../../services/api';
 
 const SignIn: React.FC = () => {
   const navigation = useNavigation();
@@ -30,10 +31,31 @@ const SignIn: React.FC = () => {
   const handleGoBack = useCallback(() => {
     navigation.goBack()
   }, [navigation]);
-  
-  const handleSend = useCallback(() => {
-    navigation.navigate('RedefinitionSent')
-  }, [navigation])
+
+  const handleSubmit = useCallback(async () => {
+
+    const data = {
+      email,
+    };
+
+    try {
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          .required('E-mail obrigatório')
+          .email('Digite um e-mail válido'),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      api.post('forgot-password', data);
+
+      navigation.navigate('RedefinitionSent')
+    } catch (err) {
+      alert(err.message);
+    }
+  }, [email, navigation])
 
   return (
     <>
@@ -77,15 +99,17 @@ const SignIn: React.FC = () => {
               <CustomizedInput
                 first
                 last 
+                autoCapitalize="none"
                 placeholder="E-mail"
                 value={email}
                 onChangeText={text => setEmail(text)}
+                onSubmitEditing={handleSubmit}
               />
             </View>
 
             <Button 
               enabled={isButtonEnabled}
-              onPress={handleSend}
+              onPress={handleSubmit}
             >
               Enviar
             </Button>

@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 
 import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
 
 import styles from './styles';
 
@@ -11,10 +12,11 @@ import landingImg from '../../assets/images/landing.png';
 import studyIcon from '../../assets/images/icons/study.png';
 import giveClassesIcon from '../../assets/images/icons/give-classes.png';
 import heartIcon from '../../assets/images/icons/heart.png';
-import signOut from '../../assets/images/icons/Sair.png';
+import signOutImg from '../../assets/images/icons/Sair.png';
 
 const Landing: React.FC = () => {
   const navigation = useNavigation();
+  const { signOut } = useAuth();
 
   const [totalConnections, setTotalConnections] = useState(0);
 
@@ -31,11 +33,8 @@ const Landing: React.FC = () => {
   }, [navigation]);
 
   const handleSignOut = useCallback(() => {
-    navigation.reset({
-      routes: [{ name: 'SignIn' }],
-      index: 0,
-    });
-  }, [navigation]);
+    signOut();
+  }, [signOut]);
 
   return (
     <View style={styles.container}>
@@ -53,7 +52,7 @@ const Landing: React.FC = () => {
             style={styles.signOutButton}
             onPress={handleSignOut}
           >
-            <Image source={signOut} />
+            <Image source={signOutImg} />
           </TouchableOpacity>
         </View>
         <Image source={landingImg} style={styles.banner} />

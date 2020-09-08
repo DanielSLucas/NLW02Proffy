@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, RefObject, forwardRef } from 'react';
 import { View, TextInput, TextInputProps, Text, TouchableOpacity, Image } from 'react-native';
 
 import eyeIcon from '../../assets/images/icons/eye.png';
@@ -14,8 +14,8 @@ interface InputProps extends TextInputProps {
   isPassword?: boolean;
 }
 
-const CustomizedInput: React.FC<InputProps> = 
-  ({ placeholder, password, first, last, value, isPassword,...rest }) => {  
+const CustomizedInput: React.ForwardRefRenderFunction<TextInput, InputProps> = 
+  ({ placeholder, password, first, last, value, isPassword, ...rest }, ref) => {  
   
   const [showPassword, setShowPassword] = useState(false);
   const [isPasswordInput, setIsPasswordInput] = useState(isPassword)
@@ -52,6 +52,7 @@ const CustomizedInput: React.FC<InputProps> =
     <View style={[styles.container, first? styles.firstInput : {}, last? styles.lastInput : {}]}>
       {isFocused && <View style={styles.inputFocus}></View>}
       <TextInput 
+        ref={ref}
         style={styles.input}
         secureTextEntry={isPasswordInput}
         placeholder={placeholder}
@@ -87,4 +88,4 @@ const CustomizedInput: React.FC<InputProps> =
   );
 }
 
-export default CustomizedInput;
+export default forwardRef(CustomizedInput);

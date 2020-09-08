@@ -1,7 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, ImageBackground, Image, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
+import { View, Text, ImageBackground, Image, TouchableOpacity, KeyboardAvoidingView, ScrollView, TextInput, Alert } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import * as Yup from 'yup';
+
+import { useAuth } from '../../hooks/auth';
 
 import CustomizedInput from '../../components/CustomizedInput';
 import Button from '../../components/Button';
@@ -13,7 +16,10 @@ import styles from './styles';
 
 const SignIn: React.FC = () => {
   const navigation = useNavigation();
+  const { signIn } = useAuth();
   
+  const passwordInputRef = useRef<TextInput>(null);
+
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   
   const [email, setEmail] = useState('');
@@ -36,9 +42,37 @@ const SignIn: React.FC = () => {
     navigation.navigate('ForgotPassword')
   }, [navigation])
 
-  const handleSignIn = useCallback(() => {
-    navigation.navigate('Landing')
-  }, [navigation]);
+  const handleSignIn = useCallback(async () => {
+    const data = {
+      email,
+      password,
+      rememberMe
+    };
+
+    try {
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          .required('E-mail obrigatório')
+          .email('Digite um e-mail válido'),
+        password: Yup.string().min(6, 'A senha deve ter no mínimo 6 dígitos'),
+        rememberMe: Yup.boolean(),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      await signIn({
+        email: data.email,
+        password: data.password,
+        rememberMe: data.rememberMe,
+      });
+
+      navigation.navigate('Landing')
+    } catch (err) {
+      Alert.alert("Erro no login, tente novamente");
+    }
+  }, [email, navigation, password, rememberMe, signIn ])
 
   return (
     <>
@@ -78,17 +112,23 @@ const SignIn: React.FC = () => {
 
             <View style={styles.inputsContainer}>
               <CustomizedInput
-                first
-                placeholder="E-mail"
+                first                  
                 value={email}
+                placeholder="E-mail"
+                autoCapitalize="none"
                 onChangeText={text => setEmail(text)}
+                onSubmitEditing={() => {
+                  passwordInputRef.current?.focus();
+                }}
               />
               <CustomizedInput
                 last
+                ref={passwordInputRef}
                 placeholder="Senha"
                 isPassword
                 value={password}
                 onChangeText={text => setPassword(text)}
+                onSubmitEditing={handleSignIn}
               />
             </View>
 

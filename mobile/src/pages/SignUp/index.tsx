@@ -1,7 +1,8 @@
 import React, { useRef, useCallback, useState } from 'react';
-import { View, KeyboardAvoidingView, Image, Text, StatusBar, Platform, TouchableOpacity } from 'react-native';
+import { View, KeyboardAvoidingView, Image, Text, StatusBar, Platform, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
+import * as Yup from 'yup';
 
 import CustomizedInput from '../../components/CustomizedInput';
 
@@ -9,10 +10,13 @@ import backIcon from '../../assets/images/icons/Voltar.png';
 
 import styles from './styles';
 import Button from '../../components/Button';
+import api from '../../services/api';
 
 const SignUp: React.FC = () => {
   const swiper = useRef<Swiper>(null);
   const navigation = useNavigation();
+
+  const passwordInputRef = useRef<TextInput>(null);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -28,9 +32,33 @@ const SignUp: React.FC = () => {
     navigation.goBack()
   }, [navigation]);
 
-  const handleSignUp = useCallback(() => {
-    navigation.navigate('SignUpSuccess')
-  }, [navigation]);
+  const handleSignUp = useCallback(async () => {
+    const data = {
+      name,
+      email,
+      password,
+    };
+
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Nome obrigatório'),
+        email: Yup.string()
+          .required('E-mail obrigatório')
+          .email('Digite um e-mail válido'),
+        password: Yup.string().required('Senha obrigatória'),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      await api.post('users', data);
+
+      navigation.navigate('SignUpSuccess')
+    } catch (err) {
+      Alert.alert(err.message);
+    }
+  }, [name, email, password, navigation]);
 
   return (
     <View style={styles.container}>
@@ -108,14 +136,19 @@ const SignUp: React.FC = () => {
                   placeholder="E-mail"
                   value={email}
                   onChangeText={text => setEmail(text)}
+                  onSubmitEditing={() => {
+                    passwordInputRef.current?.focus()
+                  }}
                 />
 
                 <CustomizedInput
                   last
                   isPassword
+                  ref={passwordInputRef}
                   placeholder="Senha"
                   value={password}
                   onChangeText={text => setPassword(text)}
+                  onSubmitEditing={handleSignUp}
                 />
               </View>
             </View>

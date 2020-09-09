@@ -11,9 +11,10 @@ import styles from './styles';
 interface PageHeaderProps {
   title: string;
   headerRight?: ReactNode;
+  page: string;
 }
 
-const PageHeader: React.FC<PageHeaderProps> = ({ title, children, headerRight }) => {
+const PageHeader: React.FC<PageHeaderProps> = ({ title, children, headerRight, page, }) => {
 
   const { navigate } = useNavigation();
 
@@ -29,7 +30,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, children, headerRight })
             <Image source={backIcon} resizeMode="contain" />
           </BorderlessButton>
 
-          <Text style={styles.topBarText}>Estudar</Text>
+          <Text style={styles.topBarText}>{page}</Text>
 
           <Image source={logoImg} resizeMode={"contain"} />
         </View>

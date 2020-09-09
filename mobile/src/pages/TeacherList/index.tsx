@@ -57,12 +57,13 @@ const TeacherList: React.FC = () => {
 
   useFocusEffect(() => {
     loadFavorites();
-  });
+  }); 
 
   return (
     <View style={styles.container}>
       <PageHeader
         title="Proffys disponíveis"
+        page="Estudar"
         headerRight={(
           <BorderlessButton onPress={handleToggleFiltersVisible}>
             <Feather name="filter" size={20} color="#fff" />

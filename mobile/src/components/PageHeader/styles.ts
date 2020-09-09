@@ -2,20 +2,35 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    padding: 40,
-    backgroundColor: '#8257e5'
+    backgroundColor: '#8257e5',
+    paddingBottom: 40,
   },
 
   topBar: {
+    justifyContent: "center",
+    height: 90,
+    backgroundColor: '#6842C2'
+  },
+
+  topBarContent: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: 25,
+    paddingHorizontal: 40,      
+  },
+
+  topBarText: {
+    fontFamily: "Archivo_700Bold",
+    fontSize: 14,
+    color: "#D4C2FF",
   },
 
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingHorizontal: 40,
   },
 
   title: {
@@ -25,6 +40,10 @@ const styles = StyleSheet.create({
     lineHeight: 32,
     maxWidth: 160,
     marginVertical: 40,
+  },
+
+  content: {
+    paddingHorizontal: 40,
   },
 });
 

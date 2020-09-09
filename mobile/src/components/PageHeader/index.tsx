@@ -24,11 +24,15 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, children, headerRight })
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
-        <BorderlessButton onPress={handleGoBack}>
-          <Image source={backIcon} resizeMode="contain" />
-        </BorderlessButton>
+        <View style={styles.topBarContent}>
+          <BorderlessButton onPress={handleGoBack}>
+            <Image source={backIcon} resizeMode="contain" />
+          </BorderlessButton>
 
-        <Image source={logoImg} resizeMode={"contain"} />
+          <Text style={styles.topBarText}>Estudar</Text>
+
+          <Image source={logoImg} resizeMode={"contain"} />
+        </View>
 
       </View>
 
@@ -39,7 +43,9 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, children, headerRight })
       </View>
 
 
-      {children}
+      <View style={styles.content}>
+        {children}
+      </View>
     </View>
   );
 };

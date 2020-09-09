@@ -8,7 +8,7 @@ import unfavoriteIcon from '../../assets/images/icons/unfavorite.png';
 import whatsappIcon from '../../assets/images/icons/whatsapp.png';
 
 import styles from './styles';
-import api from '../../services/api';
+import api, { baseURL } from '../../services/api';
 
 export interface Teacher {
   id: number;
@@ -67,7 +67,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
       <View style={styles.profile}>
         <Image
           style={styles.avatar}
-          source={{ uri: teacher.avatar }}
+          source={{ uri: baseURL + '/files' + `/${teacher.avatar}` }}
         />
 
         <View style={styles.profileInfo}>

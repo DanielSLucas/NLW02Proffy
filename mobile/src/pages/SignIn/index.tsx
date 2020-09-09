@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { View, Text, ImageBackground, Image, TouchableOpacity, KeyboardAvoidingView, ScrollView, TextInput, Alert } from 'react-native';
+import { View, Text, ImageBackground, Image, TouchableOpacity, KeyboardAvoidingView, ScrollView, TextInput, Alert, Platform } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
@@ -77,7 +77,7 @@ const SignIn: React.FC = () => {
   return (
     <>
       <KeyboardAvoidingView
-        behavior="padding"
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={styles.container}
         enabled
       >

@@ -62,7 +62,7 @@ const TeacherList: React.FC = () => {
   return (
     <View style={styles.container}>
       <PageHeader
-        title="Proffys disponíveis"
+        title={`Proffys ${'\n'}Disponíveis`}
         page="Estudar"
         headerRight={(
           <BorderlessButton onPress={handleToggleFiltersVisible}>

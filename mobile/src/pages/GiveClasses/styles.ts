@@ -2,45 +2,90 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#8257E5',
+    backgroundColor: '#F0F0F7',
     flex: 1,
-    justifyContent: "center",
-    padding: 40,
   },
-  content: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  title: {
-    fontFamily: 'Archivo_700Bold',
-    color: '#FFF',
-    fontSize: 32,
-    lineHeight: 37,
-    maxWidth: 180,
+  
+  headerDescription: {
+    marginTop: -20,
+    marginBottom: 30,
+    fontFamily: "Poppins_400Regular",
+    fontSize: 14,
+    color: "#D4C2FF"
   },
 
-  description: {
-    marginTop: 24,
-    color: '#d4c2ff',
-    fontSize: 16,
-    lineHeight: 26,
-    fontFamily: 'Poppins_400Regular',
-    maxWidth: 240,
-  },
-
-  okButton: {
-    marginVertical: 40,
-    backgroundColor: '#04d361',
-    height: 58,
-    alignItems: "center",
-    justifyContent: "center",
+  giveClassesForm: {
+    width: "90%",
+    alignSelf: "center",
+    marginTop: -40,
+    padding: 20,
+    
+    backgroundColor: "#FFF",
+    
+    borderWidth: 1,
+    borderColor: "#E6E6F0",
     borderRadius: 8,
   },
 
-  okButtonText: {
-    color: '#FFF',
-    fontSize: 16,
-    fontFamily: 'Archivo_700Bold',
+  legendContainer: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#E6E6F0"
+  },
+
+  legend: {
+    fontFamily: "Archivo_700Bold",
+    fontSize: 20,
+    color: "#32264D",
+    marginBottom: 10,
+  },
+
+  user: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+    marginTop: 10,
+  },
+
+  userAvatar : {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+  },
+
+  userName: {
+    fontFamily: "Archivo_700Bold",
+    fontSize: 20,
+    color: "#32264D",
+    marginLeft: 20,
+  },
+
+  inputContainer: {
+    marginTop: 15,
+  },
+
+  label: {
+    fontFamily: "Poppins_400Regular",
+    fontSize: 12,
+    color: "#9C98A6",
+    marginBottom: 5
+  },
+
+  input: {
+    borderWidth: 1,
+    borderColor: "#E6E6F0",
+    borderRadius: 8,
+
+    height: 56,
+    backgroundColor: "#FAFAFC",
+  },
+
+  textArea: {
+    height: 180,
+    marginBottom: 30,
+
+    fontFamily: "Poppins_400Regular",
+    fontSize: 14,
+    color: "#6A6180",
   },
 });
 

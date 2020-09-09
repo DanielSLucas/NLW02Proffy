@@ -37,14 +37,14 @@ Além disso, foi disponibilizado, através do figma, o layout da aplicação web
 
 #### Novas funcionalidades Mobile:
 
--   [ ] Onboarding;
--   [ ] Login;
--   [ ] Cadastro;
--   [ ] Recuperação de senha;
+-   [x] Onboarding;
+-   [x] Login;
+-   [x] Cadastro;
+-   [x] Recuperação de senha;
 -   [ ] Atualização de perfil;
 -   [ ] Upload de avatar;
 -   [ ] Favoritos no banco de dados;
--   [ ] Listagem dos horários dos professores.
+-   [x] Listagem dos horários dos professores.
 
 **¹A maior parte das implementações no front-end leva a alterações no back-end**
 

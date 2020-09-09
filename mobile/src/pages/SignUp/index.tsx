@@ -52,11 +52,14 @@ const SignUp: React.FC = () => {
         abortEarly: false,
       });
 
-      await api.post('users', data);
+      await api.post('users', {
+        ...data,
+        confirm_password: data.password,
+      });
 
       navigation.navigate('SignUpSuccess')
     } catch (err) {
-      Alert.alert(err.message);
+      Alert.alert("Falha no cadastro, tente novamente");
     }
   }, [name, email, password, navigation]);
 

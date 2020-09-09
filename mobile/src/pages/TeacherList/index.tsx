@@ -3,6 +3,7 @@ import { View, ScrollView, Text, TextInput } from 'react-native';
 import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
+import RNPickerSelect from 'react-native-picker-select';
 
 import api from '../../services/api';
 
@@ -72,24 +73,43 @@ const TeacherList: React.FC = () => {
         {isFiltersVisible && (
           <View style={styles.searchForm}>
             <Text style={styles.label}>Matéria</Text>
-            <TextInput
-              style={styles.input}
-              value={subject}
-              onChangeText={text => setSubject(text)}
-              placeholder="Qual a matéria?"
-              placeholderTextColor="#c1bccc"
-            />
+            <View style={styles.input}>
+              <RNPickerSelect
+                onValueChange={value => setSubject(value)}
+                value={subject}
+                placeholder={{ label: "Qual a matéria?" }}
+                items={[
+                  { value: 'Artes', label: 'Artes' },
+                  { value: 'Biologia', label: 'Biologia' },
+                  { value: 'Matemática', label: 'Matemática' },
+                  { value: 'Inglês', label: 'Inglês' },
+                  { value: 'Geografia', label: 'Geografia' },
+                  { value: 'História', label: 'História' },
+                  { value: 'Português', label: 'Português' },
+                  { value: 'Química', label: 'Química' },
+                  { value: 'Física', label: 'Física' },
+                ]}
+              />
+            </View>
 
             <View style={styles.inputGroup}>
               <View style={styles.inputBlock}>
                 <Text style={styles.label}>Dia da semana</Text>
-                <TextInput
-                  style={styles.input}
-                  value={week_day}
-                  onChangeText={text => setWeek_day(text)}
-                  placeholder="Qual a dia?"
-                  placeholderTextColor="#c1bccc"
-                />
+                <View style={styles.input}>
+                  <RNPickerSelect
+                    onValueChange={value => setWeek_day(value)}
+                    value={week_day}
+                    placeholder={{ label: "Qual o dia?" }}
+                    items={[
+                      { label: 'Segunda', value: 1 },
+                      { label: 'Terça', value: 2 },
+                      { label: 'Quarta', value: 3 },
+                      { label: 'Quinta', value: 4 },
+                      { label: 'Sexta', value: 5 },
+                    ]}
+                  />
+                </View>
+
               </View>
 
               <View style={styles.inputBlock}>

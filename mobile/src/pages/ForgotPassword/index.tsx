@@ -101,6 +101,8 @@ const SignIn: React.FC = () => {
                 last 
                 autoCapitalize="none"
                 placeholder="E-mail"
+                keyboardType="email-address"
+                returnKeyType="send"
                 value={email}
                 onChangeText={text => setEmail(text)}
                 onSubmitEditing={handleSubmit}

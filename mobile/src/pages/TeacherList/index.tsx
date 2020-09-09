@@ -114,13 +114,38 @@ const TeacherList: React.FC = () => {
 
               <View style={styles.inputBlock}>
                 <Text style={styles.label}>Horário</Text>
-                <TextInput
-                  style={styles.input}
-                  value={time}
-                  onChangeText={text => setTime(text)}
-                  placeholder="Qual a horário?"
-                  placeholderTextColor="#c1bccc"
-                />
+                <View style={styles.input}>
+                  <RNPickerSelect
+                    onValueChange={value => setTime(value)}
+                    value={time}
+                    placeholder={{ label: "Qual a horário?" }}
+                    items={[
+                      { label: '00h', value: "00:00" },
+                      { label: '01h', value: "01:00" },
+                      { label: '02h', value: "02:00" },
+                      { label: '03h', value: "03:00" },
+                      { label: '05h', value: "05:00" },
+                      { label: '06h', value: "06:00" },
+                      { label: '07h', value: "07:00" },
+                      { label: '08h', value: "08:00" },
+                      { label: '09h', value: "09:00" },
+                      { label: '10h', value: "10:00" },
+                      { label: '11h', value: "11:00" },
+                      { label: '12h', value: "12:00" },
+                      { label: '13h', value: "13:00" },
+                      { label: '14h', value: "14:00" },
+                      { label: '15h', value: "15:00" },
+                      { label: '16h', value: "16:00" },
+                      { label: '17h', value: "17:00" },
+                      { label: '18h', value: "18:00" },
+                      { label: '19h', value: "19:00" },
+                      { label: '20h', value: "20:00" },
+                      { label: '21h', value: "21:00" },
+                      { label: '22h', value: "22:00" },
+                      { label: '23h', value: "23:00" },
+                    ]}
+                  />
+                </View>
               </View>
             </View>
 

@@ -112,6 +112,8 @@ const SignUp: React.FC = () => {
                   autoCapitalize="words"
                   value={name}
                   onChangeText={text => setName(text)}
+                  returnKeyType="next"
+                  onSubmitEditing={handleNext}
                 />
               </View>
             </View>
@@ -137,6 +139,8 @@ const SignUp: React.FC = () => {
                   placeholder="E-mail"
                   value={email}
                   autoCapitalize="none"
+                  keyboardType="email-address"
+                  returnKeyType="next"
                   onChangeText={text => setEmail(text)}
                   onSubmitEditing={() => {
                     passwordInputRef.current?.focus()

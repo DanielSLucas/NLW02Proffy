@@ -125,8 +125,9 @@ const TeacherList: React.FC = () => {
           return (
             <TeacherItem
               key={teacher.id}
-              teacher={teacher}
               favorited={favorites.includes(teacher.id)}
+              teacher={teacher}
+              schedule={teacher.schedule}
             />
           );
         })}

@@ -103,6 +103,29 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 16,
   },
+
+  weekSchedule: {
+    borderTopWidth: 1,
+    borderTopColor: "#E6E6F0",
+
+    marginTop: 18,
+
+    alignItems: "center",
+  },
+
+  weekScheduleHeader: {
+    marginTop: 20,
+    width: "70%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  weekScheduleHeaderText: {
+    fontFamily: "Poppins_400Regular",
+    fontSize: 10,
+    color: "#9C98A6",
+  },
 });
 
 export default styles;

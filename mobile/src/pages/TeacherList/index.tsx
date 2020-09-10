@@ -3,16 +3,15 @@ import { View, ScrollView, Text, Platform } from 'react-native';
 import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-// import RNPickerSelect from 'react-native-picker-select';
-// import { Picker } from '@react-native-community/picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import api from '../../services/api';
 
 import PageHeader from '../../components/PageHeader';
+import TeacherItem, { Teacher } from '../../components/TeacherItem';
+import Select from '../../components/Select';
 
 import styles from './styles';
-import TeacherItem, { Teacher } from '../../components/TeacherItem';
 import { useFocusEffect } from '@react-navigation/native';
 
 const TeacherList: React.FC = () => {
@@ -75,15 +74,8 @@ const TeacherList: React.FC = () => {
 
         {isFiltersVisible && (
           <View style={styles.searchForm}>
-            <Text style={styles.label}>Matéria</Text>
-            <DropDownPicker
-              style={styles.input}
-              containerStyle={{ height: 74 }}
-              dropDownStyle={styles.dropDownStyle}
-              placeholderStyle={styles.placeholderStyle}
-              labelStyle={styles.optionLabel}
-              itemStyle={styles.option}
-              activeItemStyle={styles.activeOption}
+            <Select
+              label="Matéria"
               items={[
                 { value: 'Artes', label: 'Artes' },
                 { value: 'Biologia', label: 'Biologia' },
@@ -101,15 +93,8 @@ const TeacherList: React.FC = () => {
             />
             <View style={styles.inputGroup}>
               <View style={styles.inputBlock}>
-                <Text style={styles.label}>Dia da semana</Text>
-                <DropDownPicker
-                  style={styles.input}
-                  containerStyle={{ height: 74 }}
-                  dropDownStyle={styles.dropDownStyle}
-                  placeholderStyle={styles.placeholderStyle}
-                  labelStyle={styles.optionLabel}
-                  itemStyle={styles.option}
-                  activeItemStyle={styles.activeOption}
+                <Select
+                  label="Dia da semana"
                   items={[
                     { label: 'Segunda', value: 1 },
                     { label: 'Terça', value: 2 },
@@ -121,19 +106,11 @@ const TeacherList: React.FC = () => {
                   defaultValue={week_day}
                   onChangeItem={item => setWeek_day(item.value)}
                 />
-
               </View>
 
               <View style={styles.inputBlock}>
-                <Text style={styles.label}>Horário</Text>
-                <DropDownPicker
-                  style={styles.input}
-                  containerStyle={{ height: 74 }}
-                  dropDownStyle={styles.dropDownStyle}
-                  placeholderStyle={styles.placeholderStyle}
-                  labelStyle={styles.optionLabel}
-                  itemStyle={styles.option}
-                  activeItemStyle={styles.activeOption}
+                <Select
+                  label="Horário"
                   items={[
                     { label: '00h', value: "00:00" },
                     { label: '01h', value: "01:00" },

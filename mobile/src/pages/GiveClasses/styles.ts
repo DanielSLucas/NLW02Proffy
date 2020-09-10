@@ -104,6 +104,8 @@ const styles = StyleSheet.create({
 
   scheduleItem: {
     marginBottom: 10,
+    borderBottomColor: "#E6E6F0",
+    borderBottomWidth: 1,
   },
 
   scheduleItemTime: {

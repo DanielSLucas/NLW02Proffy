@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, ScrollView, Image, TextInput } from 'react-native';
-import RNPickerSelect from 'react-native-picker-select';
 
 import { useAuth } from '../../hooks/auth';
 import { baseURL } from '../../services/api';
@@ -66,21 +65,8 @@ const GiveClasses: React.FC = () => {
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Matéria</Text>
           <View style={styles.input}>
-            <RNPickerSelect
-              onValueChange={() => { }}
-              useNativeAndroidPickerStyle
-              placeholder={{ label: "Qual a matéria?" }}
-              items={[
-                { value: 'Artes', label: 'Artes' },
-                { value: 'Biologia', label: 'Biologia' },
-                { value: 'Matemática', label: 'Matemática' },
-                { value: 'Inglês', label: 'Inglês' },
-                { value: 'Geografia', label: 'Geografia' },
-                { value: 'História', label: 'História' },
-                { value: 'Português', label: 'Português' },
-                { value: 'Química', label: 'Química' },
-                { value: 'Física', label: 'Física' },
-              ]}
+            <TextInput
+              style={[styles.input,]}
             />
           </View>
         </View>

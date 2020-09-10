@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     width: "90%",
     alignSelf: "center",
     marginTop: -40,
-    padding: 20,
     
     backgroundColor: "#FFF",
     
@@ -27,9 +26,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
 
+  giveClassesFormContent: {
+    padding: 20,
+  },
+
   legendContainer: {
     borderBottomWidth: 1,
-    borderBottomColor: "#E6E6F0"
+    borderBottomColor: "#E6E6F0",
+    marginBottom: 20,
   },
 
   legend: {
@@ -39,11 +43,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
+  labelStyle: {
+    fontFamily: "Poppins_400Regular",
+    fontSize: 12,
+    color: "#9C98A6",
+    marginBottom: 5
+  },
+
   user: {
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
-    marginTop: 10,
+    marginTop: -10,
   },
 
   userAvatar : {
@@ -59,34 +70,80 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
 
-  inputContainer: {
-    marginTop: 15,
-  },
-
-  label: {
-    fontFamily: "Poppins_400Regular",
-    fontSize: 12,
-    color: "#9C98A6",
-    marginBottom: 5
-  },
-
-  input: {
-    borderWidth: 1,
-    borderColor: "#E6E6F0",
-    borderRadius: 8,
-
-    height: 56,
-    backgroundColor: "#FAFAFC",
-  },
-
   textArea: {
-    height: 180,
+    height: "auto",
     marginBottom: 30,
+    paddingVertical: 10,
 
     fontFamily: "Poppins_400Regular",
     fontSize: 14,
     color: "#6A6180",
   },
+
+  timeLegendContainer: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#E6E6F0",
+    marginTop: 20,
+    marginBottom: 20,
+    
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  addNewButton: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  addNewButtonText: {
+    fontFamily: "Archivo_700Bold",
+    fontSize: 14,
+    color: "#8257E5",
+  },
+
+  scheduleItem: {
+    marginBottom: 10,
+  },
+
+  scheduleItemTime: {
+   flexDirection: "row",
+   justifyContent: "space-between",
+   alignItems: "center",
+  },
+
+  timeItem: {
+    width: "48%",
+  },
+
+  giveClassesFormFooter: {
+    backgroundColor: "#FAFAFC",
+    borderTopColor: "#E6E6F0",
+    borderTopWidth: 1,
+  },
+
+  warningContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginTop: 20,
+  },
+
+  warningTextContainer: {
+    marginLeft: 15,
+  },
+
+  warningTitle: {
+    fontFamily: "Poppins_400Regular",
+    fontSize: 12,
+    color: "#8257E5",
+  },
+
+  warningDescription: {
+    fontFamily: "Poppins_400Regular",
+    fontSize: 12,
+    color: "#A0A0B2",
+  }
 });
 
 export default styles;

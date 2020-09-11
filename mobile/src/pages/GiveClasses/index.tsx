@@ -59,7 +59,7 @@ const GiveClasses: React.FC = () => {
       cost: Number(cost),
       schedule: scheduleItems
     }).then(() => {
-      navigation.navigate('class-created');
+      navigation.navigate('ClassCreated');
     }).catch(() => {
       Alert.alert('Erro no cadastro');
     });

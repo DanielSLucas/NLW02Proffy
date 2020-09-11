@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   
   wrapper: {
-    height: "60%",
+    height: "100%",
   },
 
   slide: {

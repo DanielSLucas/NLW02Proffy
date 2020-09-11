@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderBottomColor: "#E6E6F0",
     borderBottomWidth: 1,
+    zIndex: 2,
   },
 
   scheduleItemTime: {
@@ -116,12 +117,14 @@ const styles = StyleSheet.create({
 
   timeItem: {
     width: "48%",
+    zIndex: 3,
   },
 
   giveClassesFormFooter: {
     backgroundColor: "#FAFAFC",
     borderTopColor: "#E6E6F0",
     borderTopWidth: 1,
+    zIndex: -1,
   },
 
   warningContainer: {
@@ -129,22 +132,26 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     marginTop: 20,
+    zIndex: -1,
   },
 
   warningTextContainer: {
     marginLeft: 15,
+    zIndex: -1,
   },
 
   warningTitle: {
     fontFamily: "Poppins_400Regular",
     fontSize: 12,
     color: "#8257E5",
+    zIndex: -1,
   },
 
   warningDescription: {
     fontFamily: "Poppins_400Regular",
     fontSize: 12,
     color: "#A0A0B2",
+    zIndex: -1,
   }
 });
 

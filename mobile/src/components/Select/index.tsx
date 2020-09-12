@@ -2,7 +2,7 @@ import React from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import styles from './styles';
-import { View, Text, StyleProp, TextStyle } from 'react-native';
+import { View, Text, StyleProp, TextStyle, Platform } from 'react-native';
 
 interface SelectProps extends DropDownPicker {
   label: string;
@@ -11,7 +11,7 @@ interface SelectProps extends DropDownPicker {
 
 const Select: React.FC<SelectProps> = ({ label, labelStyles, ...rest }) => {
   return (
-    <View style={styles.container}>
+    <View style={Platform.OS !== 'android' && {zIndex: 10}}>
       <Text style={[styles.label, labelStyles]}>{label}</Text>
       <DropDownPicker
         style={styles.input}

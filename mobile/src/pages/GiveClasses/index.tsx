@@ -81,6 +81,7 @@ const GiveClasses: React.FC = () => {
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={{ flex: 1 }}
+        enabled
       >
         <View style={styles.giveClassesForm}>
           <View style={styles.giveClassesFormContent}>

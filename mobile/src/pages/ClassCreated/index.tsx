@@ -7,6 +7,8 @@ import doneIcon from '../../assets/images/icons/Feito.png';
 
 import Button from '../../components/Button';
 
+import styles from './styles';
+
 const ClassCreated: React.FC = () => {
   const navigation = useNavigation();
 

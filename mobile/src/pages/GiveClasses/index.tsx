@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, ScrollView, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import * as Yup from 'yup';
 
 import { useAuth } from '../../hooks/auth';
 import api, { baseURL } from '../../services/api';
@@ -51,18 +52,41 @@ const GiveClasses: React.FC = () => {
     setScheduleItems(updateScheduleItems);
   }, [scheduleItems]);
 
-  const handleCreateClass = useCallback(() => {
-    api.post('classes', {
+  const handleCreateClass = useCallback(async () => {
+    
+    const data = {
       whatsapp,
       bio,
       subject,
       cost: Number(cost),
       schedule: scheduleItems
-    }).then(() => {
+    }
+
+    try {
+      const schema = Yup.object().shape({
+        whatsapp: Yup.string().required('Whatsapp obrigatório'),
+        bio: Yup.string(),
+        subject: Yup.string().required('Matéria obrigatória'),
+        cost: Yup.number().required('Custo/aula obrigatório'),
+        schedule: Yup.array().of(Yup.object().shape({
+          id: Yup.number(),
+          week_day: Yup.number(),
+          from: Yup.string(),
+          to: Yup.string(),
+        }))
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+
+      await api.post('classes', data);
+
       navigation.navigate('ClassCreated');
-    }).catch(() => {
+    } catch (err) {
       Alert.alert('Erro no cadastro');
-    });
+    }
 
   }, [whatsapp, bio, subject, cost, scheduleItems, navigation]);
 
@@ -100,6 +124,7 @@ const GiveClasses: React.FC = () => {
             </View>
 
             <Input
+              isTel
               label="Whatsapp"
               value={whatsapp}
               onChangeText={text => setWhatsapp(text)}

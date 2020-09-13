@@ -45,6 +45,11 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 40,
   },
+
+  contentWithBackground: {
+    marginTop: -80,
+    marginBottom: 30,
+  }
 });
 
 export default styles;

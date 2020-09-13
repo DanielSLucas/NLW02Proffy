@@ -32,6 +32,10 @@ const Landing: React.FC = () => {
     navigation.navigate('Study')
   }, [navigation]);
 
+  const handleNavigateToProfile = useCallback(() => {
+    navigation.navigate('Profile')
+  }, [navigation]);
+
   const handleSignOut = useCallback(() => {
     signOut();
   }, [signOut]);
@@ -40,7 +44,7 @@ const Landing: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.head}>
-          <TouchableWithoutFeedback >
+          <TouchableWithoutFeedback onPress={handleNavigateToProfile}>
             <View style={styles.user}>
               <Image
                 source={{ uri: baseURL + '/files' + `/${user.avatar}` }}

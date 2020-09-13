@@ -9,12 +9,13 @@ import logoImg from '../../assets/images/logo.png';
 import styles from './styles';
 
 interface PageHeaderProps {
-  title: string;
+  title?: string;
   headerRight?: ReactNode;
   page: string;
+  background?: boolean
 }
 
-const PageHeader: React.FC<PageHeaderProps> = ({ title, children, headerRight, page, }) => {
+const PageHeader: React.FC<PageHeaderProps> = ({ title, children, headerRight, background, page, }) => {
 
   const { navigate } = useNavigation();
 
@@ -43,10 +44,15 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, children, headerRight, p
         {headerRight}
       </View>
 
+      {background
+        ? (<View style={styles.contentWithBackground}>{ children }</View>)
+        : (
+          <View style={styles.content}>
+            {children}
+          </View>
+        )
+      }
 
-      <View style={styles.content}>
-        {children}
-      </View>
     </View>
   );
 };

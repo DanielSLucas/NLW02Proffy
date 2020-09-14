@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { ceil } from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,6 +20,26 @@ const styles = StyleSheet.create({
     width: 140,
     height: 140,
     borderRadius: 70,
+    backgroundColor: "#6842C2",
+  },
+
+  uploadButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "#04D361",
+
+    justifyContent: "center",
+
+    position: "absolute",
+    right: 0,
+    bottom: 0,
+  },
+
+  uploadButtonIcon: {
+    width: 24,
+    height: 24,
+    alignSelf: "center",
   },
 
   userName: {

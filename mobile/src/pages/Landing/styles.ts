@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     width: 40,
     borderRadius: 20,
     marginRight: 15,
+    backgroundColor: "#6842C2",
   },
 
   userName: {

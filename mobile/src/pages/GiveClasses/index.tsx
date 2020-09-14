@@ -281,6 +281,7 @@ const GiveClasses: React.FC = () => {
               <Button 
                 enabled
                 onPress={handleCreateClass}
+                style={{width: "100%"}}
               >
                 Salvar cadastro
               </Button>

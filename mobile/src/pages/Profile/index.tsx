@@ -225,7 +225,7 @@ const Profile: React.FC = () => {
   }, [updateUser, user.id])
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <PageHeader
         page="Meu perfil"
         background
@@ -258,7 +258,7 @@ const Profile: React.FC = () => {
         style={{ flex: 1 }}
         enabled
       >
-        <ScrollView style={styles.giveClassesForm}>
+        <View style={styles.giveClassesForm}>
           <View style={styles.giveClassesFormContent}>
             <View style={[styles.legendContainer, { marginBottom: 5, }]}>
               <Text style={styles.legend}>
@@ -445,6 +445,7 @@ const Profile: React.FC = () => {
               <Button
                 enabled
                 onPress={handleUpdateProfile}
+                style={{width: "100%"}}
               >
                 Salvar cadastro
               </Button>
@@ -462,9 +463,9 @@ const Profile: React.FC = () => {
               </View>
             </View>
           </View>
-        </ScrollView>
+        </View>
       </KeyboardAvoidingView>
-    </View>
+    </ScrollView>
   );
 }
 

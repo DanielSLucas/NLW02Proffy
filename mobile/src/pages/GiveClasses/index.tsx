@@ -69,7 +69,6 @@ const GiveClasses: React.FC = () => {
         subject: Yup.string().required('Matéria obrigatória'),
         cost: Yup.number().required('Custo/aula obrigatório'),
         schedule: Yup.array().of(Yup.object().shape({
-          id: Yup.number(),
           week_day: Yup.number(),
           from: Yup.string(),
           to: Yup.string(),

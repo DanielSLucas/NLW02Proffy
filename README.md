@@ -43,7 +43,7 @@ Além disso, foi disponibilizado, através do figma, o layout da aplicação web
 -   [x] Recuperação de senha;
 -   [x] Página "dar aulas";
 -   [ ] Atualização de perfil;
--   [ ] Upload de avatar;
+-   [x] Upload de avatar;
 -   [ ] Favoritos no banco de dados;
 -   [x] Listagem dos horários dos professores.
 

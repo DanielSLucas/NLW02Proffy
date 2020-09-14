@@ -1,10 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, ScrollView, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Alert, ImageBackground } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableOpacity, KeyboardAvoidingView, Platform, Alert, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
+import * as ImagePicker from 'expo-image-picker';
 
 import { useAuth } from '../../hooks/auth';
 import api, { baseURL } from '../../services/api';
+import convertMinutesToHour from '../../utils/convertMinutesToHour';
 
 import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
@@ -13,9 +15,9 @@ import Button from '../../components/Button';
 
 import warningIcon from '../../assets/images/icons/warning.png';
 import profileBackgroundImg from '../../assets/images/profile-background.png';
+import cameraIcon from '../../assets/images/icons/camera.png';
 
 import styles from './styles';
-import convertMinutesToHour from '../../utils/convertMinutesToHour';
 
 interface ScheduleItem {
   id: number;
@@ -187,17 +189,33 @@ const Profile: React.FC = () => {
     }
   }, [name, email, whatsapp, bio, subject, cost, scheduleItems, updateUser, profileInfo.user.id, profileInfo.user.avatar, profileInfo.user.avatar_url]);
 
-  // const handleAvatarChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files) {
-  //     const data = new FormData();
+  const handleUpdateAvatar = useCallback(async () => {
 
-  //     data.append('avatar', e.target.files[0]);
+    const permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
 
-  //     api.patch('avatar', data).then(response => {
-  //       updateUser(response.data.user)
-  //     });
-  //   }
-  // }, [updateUser])
+    if (permissionResult.granted === false) {
+      Alert.alert('Permissão para acessar o rolo da câmera necessária');
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync();
+    
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+
+    const data = new FormData();
+
+    data.append('avatar', {
+      type: 'Image/jpeg',
+      uri: pickerResult.uri,
+      name: `${user.id}.jpg`,
+    });
+
+    api.patch('avatar', data).then(apiResponse => {
+      updateUser(apiResponse.data.user)
+    });
+  }, [updateUser, user.id])
 
   return (
     <View style={styles.container}>
@@ -211,10 +229,16 @@ const Profile: React.FC = () => {
           style={styles.headerBackground}
         >
           <View style={styles.intro}>
-            <Image 
-              style={styles.avatar} 
-              source={{ uri: baseURL + '/files' + `/${user.avatar}` }}
-            />
+            <View>
+              <Image
+                style={styles.avatar}
+                source={{ uri: baseURL + '/files' + `/${user.avatar}` }}
+              />
+
+              <TouchableOpacity onPress={handleUpdateAvatar} style={styles.uploadButton}>
+                <Image style={styles.uploadButtonIcon} source={cameraIcon} />
+              </TouchableOpacity>
+            </View>
 
             <Text style={styles.userName} >{name}</Text>
             <Text style={styles.userSubject} >{subject}</Text>
@@ -229,7 +253,7 @@ const Profile: React.FC = () => {
       >
         <ScrollView style={styles.giveClassesForm}>
           <View style={styles.giveClassesFormContent}>
-            <View style={styles.legendContainer}>
+            <View style={[styles.legendContainer, { marginBottom: 5, }]}>
               <Text style={styles.legend}>
                 Seus dados
               </Text>

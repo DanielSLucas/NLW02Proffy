@@ -19,9 +19,9 @@ export default class UsersController {
   async show(request: Request, response: Response) {
 
     try {
-      const { id } = request.user;
+      const user_id = request.user.id;
 
-      const userArray: User[] = await db('users').where('users.id', '=', id);
+      const userArray: User[] = await db('users').where('users.id', '=', user_id);
       const user = userArray[0];
 
       delete user.password;
@@ -31,11 +31,16 @@ export default class UsersController {
         avatar_url: `http://localhost:3333/files/${user.avatar}`
       }
 
-      const classArray = await db('classes').where('classes.user_id', '=', id);
+      const classArray = await db('classes').where('classes.user_id', '=', user_id);
       const proffyClass = classArray[0];
+
+      if (!proffyClass) {
+        return response.json({ user: toBeReturnedUser, user_class: null, class_schedule: null });
+      }
 
       const classSchedule = await db('class_schedule')
         .where('class_schedule.class_id', '=', proffyClass.id);
+      
       
       return response.json({ user: toBeReturnedUser, user_class: proffyClass, class_schedule: classSchedule });
     } catch (err) {

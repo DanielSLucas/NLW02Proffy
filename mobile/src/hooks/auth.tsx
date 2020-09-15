@@ -25,10 +25,11 @@ interface User {
 
 interface AuthContextData {
   user: User;
-  loading: boolean;
+  isLoading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
-  signOut(): void;
-  updateUser(user: User): void;
+  signOut(): Promise<void>;
+  updateUser(user: User): Promise<void>;
+  setLoading(isLoading: boolean): void;
 }
 
 export const AuthContext = createContext<AuthContextData>(
@@ -37,7 +38,7 @@ export const AuthContext = createContext<AuthContextData>(
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>({} as AuthState);
-  const [loading, setLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     async function loadStorageData(): Promise<void> {
@@ -52,7 +53,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         setData({token: token[1], user: JSON.parse(user[1]) });
       }
 
-      setLoading(false);
+      setIsLoading(false);
     }
     loadStorageData();
   }, [])
@@ -74,6 +75,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     api.defaults.headers.authorization = `Bearer ${token}`;
 
     setData({ token, user });
+
+    setIsLoading(false);
   },[]);
 
   const signOut = useCallback(async () => {
@@ -91,8 +94,12 @@ export const AuthProvider: React.FC = ({ children }) => {
     });
   }, [data.token])
 
+  const setLoading = useCallback((isLoading: boolean) => {
+    setIsLoading(isLoading);
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut, updateUser, loading }} >
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut, updateUser, isLoading, setLoading }} >
       {children}
     </AuthContext.Provider>
   );

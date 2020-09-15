@@ -40,8 +40,8 @@ interface ProfileInfo {
     subject: string;
     cost: number;
     user_id: string;
-  },
-  class_schedule: ScheduleItem[];
+  } | null,
+  class_schedule: ScheduleItem[] | null;
 }
 
 const Profile: React.FC = () => {
@@ -93,19 +93,23 @@ const Profile: React.FC = () => {
     setEmail(profileInfo.user.email);
     setWhatsapp(profileInfo.user.whatsapp);
     setBio(profileInfo.user.bio);
-    setSubject(profileInfo.user_class.subject);
-    setCost(profileInfo.user_class.cost.toString());
 
-    const formattedSchedule = profileInfo.class_schedule.map(scheduleItem => {
-      return {
-        id: scheduleItem.id,
-        week_day: Number(scheduleItem.week_day),
-        from: convertMinutesToHour(Number(scheduleItem.from)),
-        to: convertMinutesToHour(Number(scheduleItem.to)),
-      }
-    });
-
-    setScheduleItems(formattedSchedule);
+    if (profileInfo.user_class && profileInfo.class_schedule) {
+      setSubject(profileInfo.user_class.subject);
+      setCost(profileInfo.user_class.cost.toString());
+  
+      const formattedSchedule = profileInfo.class_schedule.map(scheduleItem => {
+        return {
+          id: scheduleItem.id,
+          week_day: Number(scheduleItem.week_day),
+          from: convertMinutesToHour(Number(scheduleItem.from)),
+          to: convertMinutesToHour(Number(scheduleItem.to)),
+        }
+      });
+  
+      setScheduleItems(formattedSchedule);
+    }
+    
   }, [profileInfo])
 
   const addNewScheduleItem = useCallback(() => {
@@ -179,7 +183,7 @@ const Profile: React.FC = () => {
 
       await api.put('profile', data);
 
-      updateUser({
+      await updateUser({
         id: profileInfo.user.id,
         name,
         avatar: profileInfo.user.avatar,

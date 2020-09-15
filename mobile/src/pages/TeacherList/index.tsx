@@ -3,7 +3,6 @@ import { View, ScrollView, Text, Platform } from 'react-native';
 import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import DropDownPicker from 'react-native-dropdown-picker';
 
 import api from '../../services/api';
 

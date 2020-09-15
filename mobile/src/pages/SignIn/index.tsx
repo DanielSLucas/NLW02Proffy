@@ -16,7 +16,7 @@ import styles from './styles';
 
 const SignIn: React.FC = () => {
   const navigation = useNavigation();
-  const { signIn } = useAuth();
+  const { signIn, setLoading } = useAuth();
   
   const passwordInputRef = useRef<TextInput>(null);
 
@@ -61,6 +61,8 @@ const SignIn: React.FC = () => {
       await schema.validate(data, {
         abortEarly: false,
       });
+
+      setLoading(true);
 
       await signIn({
         email: data.email,

@@ -44,7 +44,6 @@ Além disso, foi disponibilizado, através do figma, o layout da aplicação web
 -   [x] Página "dar aulas";
 -   [x] Atualização de perfil;
 -   [x] Upload de avatar;
--   [ ] Favoritos no banco de dados;
 -   [x] Listagem dos horários dos professores.
 
 **¹A maior parte das implementações no front-end leva a alterações no back-end**
